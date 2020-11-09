@@ -1,0 +1,26 @@
+# -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    mtu = bld.create_ns3_module('mtu', ['core', 'stats'])
+    mtu.source = [
+        'helper/mtu-net-helper.cc',
+        'model/mtu-bulksend-application.cc',
+        'model/multi-queue.cc',
+        'model/mtu-net-device.cc',
+        'model/priority-tag.cc',
+        'utils/mtu-utility.cc',
+        'utils/mtu-decision.cc'
+    ]
+    
+    headers = bld(features='ns3header')
+    headers.module = 'mtu'
+    headers.source = [
+        'helper/mtu-net-helper.h',
+        'model/mtu-bulksend-application.h',
+        'model/multi-queue.h',
+        'model/mtu-net-device.h',
+        'model/priority-tag.h',
+        'utils/mtu-utility.h',
+        'utils/mtu-decision.h'
+    ]
+    
