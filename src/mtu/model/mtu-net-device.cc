@@ -44,21 +44,23 @@ namespace ns3
     {
         PriorityTag tag;
         bool found = packet->PeekPacketTag(tag);
+
         if (found)
         {
+            // std::cout << "packet sending" << std::endl;
             Ptr<MultiQueue> q = DynamicCast<MultiQueue>(this->GetQueue());
             uint64_t bytesInQueue = q->GetTotalNumber();
 
             if ((tag.GetTotalTag() + packet->GetSize()) >= tag.GetFlowsizeTag())
             {
                 uint64_t fct = Simulator::Now().GetNanoSeconds() - tag.GetTimeStamp() + rtt;
-                std::string fileName = data_fileName;
-                std::cout << fileName << std::endl;
+                std::string fileName = (std::string("./data/fct/")).append(data_fileName).append(std::string(".csv"));
+                // std::cout << fileName << std::endl;
                 std::ofstream file(fileName, std::ios::app);
                 file << tag.GetSeqTag() << "," << tag.GetFlowsizeTag() << "," << fct
                      << "\n";
                 file.close();
-                std::string buffer_file = fileName.append(std::string("_buffer.csv"));
+                std::string buffer_file = (std::string("./data/buffer/")).append(data_fileName).append(std::string("_buffer.csv"));
                 std::ofstream bufferFile(buffer_file, std::ios::app);
                 bufferFile << bytesInQueue << "\n";
                 bufferFile.close();

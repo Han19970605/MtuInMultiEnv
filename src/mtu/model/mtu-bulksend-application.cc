@@ -144,7 +144,6 @@ void MtuBulkSendApplication::StartApplication(void)
         tcp_socket->SetAttribute("SegmentSize", UintegerValue(m_sendSize));
         // tcp_socket
         m_socket = tcp_socket;
-
         // the buffer for socket
         // Ptr<TcpSocketBase> tcp_socketbase = DynamicCast<TcpSocketBase>(tcp_socket);
         // tcp_socketbase->GetTxBuffer()->TraceConnectWithoutContext("BufferSize", MakeCallback(&bufferTrace));
@@ -182,6 +181,8 @@ void MtuBulkSendApplication::StartApplication(void)
             MakeCallback(&MtuBulkSendApplication::DataSend, this));
     }
 
+    // std::cout << "connected" << m_connected << std::endl;
+
     if (m_connected)
     {
         SendData();
@@ -205,6 +206,7 @@ void MtuBulkSendApplication::StopApplication(void) // Called at time specified b
 
 void MtuBulkSendApplication::SendData()
 {
+    // std::cout << "send out data packet" << std::endl;
     NS_LOG_FUNCTION(this);
     while (m_maxBytes == 0 || m_totBytes < m_maxBytes)
     {
