@@ -7,6 +7,9 @@
 
 // extern std::map<int, int> netdeviceQ_length;
 extern std::string TCP_PROTOCOL;
+extern double LOAD;
+extern double LOSS_RATE;
+extern std::string PROPOGATION_DELAY;
 
 namespace ns3
 {
@@ -62,7 +65,8 @@ namespace ns3
                 // std::cout << fileName << std::endl;
                 std::ofstream file(fileName, std::ios::app);
                 uint32_t node_id = this->GetNode()->GetId();
-                file << node_id << "," << tag.GetSeqTag() << "," << TCP_PROTOCOL << "," << loss_rate << "," << tag.GetFlowsizeTag() << "," << fct
+                file << node_id << "," << tag.GetSeqTag() << "," << TCP_PROTOCOL << "," << loss_rate << "," << LOAD << "," << PROPOGATION_DELAY << ","
+                     << tag.GetFlowsizeTag() << "," << fct
                      << "\n";
                 file.close();
 
