@@ -225,4 +225,22 @@ namespace ns3
         return total_num;
     }
 
+    uint32_t MultiQueue::GetPktsAhead(uint32_t priority)
+    {
+        uint32_t bytesAhead = 0;
+        if (priority >= m_queues.size())
+            return GetTotalNumber();
+        else
+            for (uint32_t i = 0; i <= priority; i++)
+            {
+                std::queue<Ptr<Packet>> q = m_queues[i];
+                while (q.size() != 0)
+                {
+                    bytesAhead += q.front()->GetSize();
+                    q.pop();
+                }
+            }
+
+        return bytesAhead;
+    }
 } // namespace ns3

@@ -4,6 +4,10 @@
 #include "ns3/simulator.h"
 #include <fstream>
 #include <iostream>
+
+// extern std::map<int, int> netdeviceQ_length;
+extern std::string TCP_PROTOCOL;
+
 namespace ns3
 {
 
@@ -57,13 +61,21 @@ namespace ns3
                 std::string fileName = (std::string("./data/fct/")).append(data_fileName).append(std::string(".csv"));
                 // std::cout << fileName << std::endl;
                 std::ofstream file(fileName, std::ios::app);
-                file << tag.GetSeqTag() << "," << tag.GetFlowsizeTag() << "," << fct
+                uint32_t node_id = this->GetNode()->GetId();
+                file << node_id << "," << tag.GetSeqTag() << "," << TCP_PROTOCOL << "," << loss_rate << "," << tag.GetFlowsizeTag() << "," << fct
                      << "\n";
                 file.close();
-                std::string buffer_file = (std::string("./data/buffer/")).append(data_fileName).append(std::string("_buffer.csv"));
-                std::ofstream bufferFile(buffer_file, std::ios::app);
-                bufferFile << bytesInQueue << "\n";
-                bufferFile.close();
+
+                //netdevice at the endhost
+                // if (node_id < 32)
+                // {
+                //     netdeviceQ_length[node_id] = bytesInQueue;
+                // }
+
+                // std::string buffer_file = (std::string("./data/buffer/")).append(data_fileName).append(std::string("_buffer.csv"));
+                // std::ofstream bufferFile(buffer_file, std::ios::app);
+                // bufferFile << bytesInQueue << "\n";
+                // bufferFile.close();
             }
         }
         if (packet == 0)

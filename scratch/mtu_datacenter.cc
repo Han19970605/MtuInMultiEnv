@@ -8,6 +8,7 @@
 #include "ns3/ptr.h"
 #include "ns3/node.h"
 #include "ns3/flow-monitor-module.h"
+#include <fstream>
 
 #define START_TIME 0.0
 #define END_TIME 10
@@ -21,16 +22,16 @@
 #define PORT_START 1000
 #define PORT_END 65535
 
-// #define DATA_RATE "1Gbps"
-// #define PROPOGATION_DELAY "100us"
-// #define BANDWIDTH_LINK "1Gbps"
-// #define LOAD 2
+extern int adjust_interval;
+// extern std::map<int, int> netdeviceQ_length;
+extern std::string BANDWIDTH_LINK;
 
-// cmd传参 全局变量用于ertern
-std::string PROPOGATION_DELAY = "100us";
-std::string BANDWIDTH_LINK = "1Gbps";
-double LOSS_RATE = 0.0;
-double LOAD = 0.8;
+struct flow
+{
+    double startTime;
+    uint64_t flowSize;
+};
+extern std::vector<flow> flowInfo;
 
 using namespace ns3;
 
@@ -40,6 +41,11 @@ int main(int argc, char *argv[])
 {
     LogComponentEnable("DataCenter", LOG_INFO);
 
+    // cmd传参 全局变量用于ertern
+    std::string PROPOGATION_DELAY = "10us";
+    double LOSS_RATE = 0;
+    double LOAD = 0.3;
+
     CommandLine cmd;
     cmd.AddValue("DELAY", "延迟", PROPOGATION_DELAY);
     cmd.AddValue("LOSS_RATE", "丢包率", LOSS_RATE);
@@ -47,6 +53,7 @@ int main(int argc, char *argv[])
     cmd.AddValue("LOAD", "链路的负载状况", LOAD);
     cmd.Parse(argc, argv);
 
+    // 参数配置
     Time::SetResolution(Time::NS);
     Config::SetDefault("ns3::TcpSocket::SndBufSize", UintegerValue(BUFFER_SIZE));
     Config::SetDefault("ns3::TcpSocket::RcvBufSize", UintegerValue(BUFFER_SIZE));
@@ -65,11 +72,33 @@ int main(int argc, char *argv[])
     MtuUtility::init_cdf(cdfTable);
     MtuUtility::load_cdf(cdfTable, cdfFileName.c_str());
 
-    // string FCT file name
+    //read the flow infomation
+    std::string flowInfo_file = "./genFlow/dcgen_flow_";
+    flowInfo_file.append(BANDWIDTH_LINK);
+    flowInfo_file.append("_");
+    flowInfo_file.append(std::to_string(LOAD));
+    flowInfo_file.append(".csv");
+    std::ifstream flowCsv(flowInfo_file, std::ios::in);
+    std::string line;
+    // std::cout << flowInfo << std::endl;
+    while (getline(flowCsv, line))
+    {
+        std::stringstream ss(line);
+        flow f;
+        std::string value;
+        std::vector<std::string> info;
+        while (getline(ss, value, ','))
+        {
+            info.push_back(value);
+        }
+        f.startTime = atof(info[0].c_str());
+        f.flowSize = atoi(info[1].c_str());
+        flowInfo.push_back(f);
+    }
+
+    // FCT file name
     std::string FCT_fileName = std::string("FCT(dc)_").append(PROPOGATION_DELAY).append(std::string("_")).append(BANDWIDTH_LINK).append(std::string("_"));
     FCT_fileName = FCT_fileName.append(std::to_string(LOSS_RATE)).append(std::string("_")).append(std::to_string(LOAD));
-
-    // std::cout << FCT_fileName << std::endl;
 
     //leaf spine topology
     NodeContainer spines,
@@ -77,6 +106,33 @@ int main(int argc, char *argv[])
     spines.Create(4);
     leafs.Create(4);
     ends.Create(32);
+
+    // initialize the queue length of netdevice
+    // for (uint32_t i = 0; i < ends.GetN(); i++)
+    // {
+    //     netdeviceQ_length[i] = 0;
+    // }
+
+    /**
+     * add the id of each node
+     * 0-31 for endhost 32-35 for spines 36-39 for leafs
+     */
+    uint32_t k = 0;
+    for (uint32_t i = 0; i < ends.GetN(); i++)
+    {
+        ends.Get(i)->SetAttribute("Id", UintegerValue(k + i));
+    }
+
+    k += ends.GetN();
+    for (uint32_t i = 0; i < spines.GetN(); i++)
+    {
+        spines.Get(i)->SetAttribute("Id", UintegerValue(k + i));
+    }
+    k += spines.GetN();
+    for (uint32_t i = 0; i < leafs.GetN(); i++)
+    {
+        leafs.Get(i)->SetAttribute("Id", UintegerValue(k + i));
+    }
 
     //install stack
     InternetStackHelper stackHelper;
@@ -93,7 +149,6 @@ int main(int argc, char *argv[])
     netHelper.SetDeviceAttribute("DataRate", StringValue(BANDWIDTH_LINK));
     netHelper.SetChannelAttribute("Delay", StringValue(PROPOGATION_DELAY));
     netHelper.data_fileName = FCT_fileName;
-    netHelper.rtt = rtt;
 
     NetDeviceContainer devices_e0l0 = netHelper.InstallNormalNetDevices(ends.Get(0), leafs.Get(0));
     NetDeviceContainer devices_e1l0 = netHelper.InstallNormalNetDevices(ends.Get(1), leafs.Get(0));
@@ -297,10 +352,10 @@ int main(int argc, char *argv[])
     dstAddress.push_back(interface_e31l3.GetAddress(0));
 
     uint32_t flowCount = 0;
-    uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
     double delay_prop = double(Time(PROPOGATION_DELAY).GetMicroSeconds()) / 1000;
     double delay_process, delay_tx, delay_rx = 0;
     double end_gen_time = 64535.0 / request_rate / 32;
+    uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
 
     netHelper.InstallAllApplicationsInDC(ends, ends, request_rate, cdfTable, dstAddress, flowCount, PORT_START, PORT_END, START_TIME, END_TIME, end_gen_time,
                                          bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
@@ -321,52 +376,4 @@ int main(int argc, char *argv[])
     MtuUtility::free_cdf(cdfTable);
 
     return 0;
-
-    // NetDeviceContainer devices_l0;
-    // devices_l0.Add(devices_e0l0);
-    // devices_l0.Add(devices_e1l0);
-    // devices_l0.Add(devices_e2l0);
-    // devices_l0.Add(devices_e3l0);
-    // devices_l0.Add(devices_e4l0);
-    // devices_l0.Add(devices_e5l0);
-    // devices_l0.Add(devices_e6l0);
-    // devices_l0.Add(devices_e7l0);
-    // ipv4Helper.SetBase("10.2.1.0", "255.255.255.0");
-    // Ipv4InterfaceContainer interface_l0 = ipv4Helper.Assign(devices_l0);
-
-    // NetDeviceContainer devices_l1;
-    // devices_l1.Add(devices_e8l1);
-    // devices_l1.Add(devices_e9l1);
-    // devices_l1.Add(devices_e10l1);
-    // devices_l1.Add(devices_e11l1);
-    // devices_l1.Add(devices_e12l1);
-    // devices_l1.Add(devices_e13l1);
-    // devices_l1.Add(devices_e14l1);
-    // devices_l1.Add(devices_e15l1);
-    // ipv4Helper.SetBase("10.2.2.0", "255.255.255.0");
-    // Ipv4InterfaceContainer interface_l1 = ipv4Helper.Assign(devices_l1);
-
-    // NetDeviceContainer devices_l2;
-    // devices_l2.Add(devices_e16l2);
-    // devices_l2.Add(devices_e17l2);
-    // devices_l2.Add(devices_e18l2);
-    // devices_l2.Add(devices_e19l2);
-    // devices_l2.Add(devices_e20l2);
-    // devices_l2.Add(devices_e21l2);
-    // devices_l2.Add(devices_e22l2);
-    // devices_l2.Add(devices_e23l2);
-    // ipv4Helper.SetBase("10.2.3.0", "255.255.255.0");
-    // Ipv4InterfaceContainer interface_l2 = ipv4Helper.Assign(devices_l2);
-
-    // NetDeviceContainer devices_l3;
-    // devices_l3.Add(devices_e24l3);
-    // devices_l3.Add(devices_e25l3);
-    // devices_l3.Add(devices_e26l3);
-    // devices_l3.Add(devices_e27l3);
-    // devices_l3.Add(devices_e28l3);
-    // devices_l3.Add(devices_e29l3);
-    // devices_l3.Add(devices_e30l3);
-    // devices_l3.Add(devices_e31l3);
-    // ipv4Helper.SetBase("10.2.4.0", "255.255.255.0");
-    // Ipv4InterfaceContainer interface_l3 = ipv4Helper.Assign(devices_l3);
 }

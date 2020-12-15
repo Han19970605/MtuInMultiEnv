@@ -23,23 +23,6 @@
 #define PORT_START 1000
 #define PORT_END 100000
 
-// #define PROPOGATION_DELAY "100us"
-// #define WAN_PROPOGATION_DELAY "2ms"
-// #define BANDWIDTH_LINK "1Gbps"
-// #define ES_BANDWIDTH "1Gbps"
-// #define SS_BANDWIDTH "1Gbps"
-// #define LOAD 0.8
-// #define LOSS_RATE 0.0
-
-// cmd 参数
-std::string PROPOGATION_DELAY = "100us";
-std::string WAN_PROPOGATION_DELAY = "2ms";
-std::string BANDWIDTH_LINK = "1Gbps";
-std::string ES_BANDWIDTH = "1Gbps";
-std::string SS_BANDWIDTH = "1Gbps";
-double LOAD = 0.8;
-double LOSS_RATE = 0.0;
-
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("Mix");
@@ -54,6 +37,15 @@ NS_LOG_COMPONENT_DEFINE("Mix");
 int main(int argc, char *argv[])
 {
     LogComponentEnable("Mix", LOG_INFO);
+
+    // cmd 参数
+    std::string PROPOGATION_DELAY = "100us";
+    std::string WAN_PROPOGATION_DELAY = "2ms";
+    std::string BANDWIDTH_LINK = "1Gbps";
+    std::string ES_BANDWIDTH = "1Gbps";
+    std::string SS_BANDWIDTH = "1Gbps";
+    double LOAD = 0.8;
+    double LOSS_RATE = 0.0;
 
     CommandLine cmd;
     cmd.AddValue("DC_DELAY", "数据中心链路延迟", PROPOGATION_DELAY);

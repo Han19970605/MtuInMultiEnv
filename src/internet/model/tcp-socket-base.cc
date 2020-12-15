@@ -19,11 +19,11 @@
  * Author: Adrian Sai-wah Tam <adrian.sw.tam@gmail.com>
  */
 
-#define NS_LOG_APPEND_CONTEXT                          \
-  if (m_node)                                          \
-  {                                                    \
-    std::clog << " [node " << m_node->GetId() << "] "; \
-  }
+// #define NS_LOG_APPEND_CONTEXT                          \
+//   if (m_node)                                          \
+//   {                                                    \
+//     std::clog << " [node " << m_node->GetId() << "] "; \
+//   }
 
 #include "ns3/abort.h"
 #include "ns3/node.h"
@@ -62,8 +62,14 @@
 #include <algorithm>
 #include "ns3/priority-tag.h"
 #include "ns3/mtu-decision.h"
+#include "ns3/multi-queue.h"
+#include "ns3/mtu-net-device.h"
+#include <fstream>
 
-extern std::string BANDWIDTH_LINK;
+// extern std::string BANDWIDTH_LINK;
+extern uint64_t bandwidth;
+extern int adjust_interval;
+extern std::map<int, int> netdeviceQ_length;
 
 namespace ns3
 {
@@ -446,11 +452,11 @@ namespace ns3
     CancelAllTimers();
   }
 
-  //add the function to get the tcb
-  Ptr<TcpSocketState> TcpSocketBase::GetTcpState(void)
-  {
-    return m_tcb;
-  }
+  // //add the function to get the tcb
+  // Ptr<TcpSocketState> TcpSocketBase::GetTcpState(void)
+  // {
+  //   return m_tcb;
+  // }
 
   /* Associate a node with this TCP socket */
   void TcpSocketBase::SetNode(Ptr<Node> node)
@@ -2565,27 +2571,52 @@ namespace ns3
     /**
      * \brief check whether need to update the segmentsize per RTT
     */
-    if (Simulator::Now().GetSeconds() - m_tcb->m_lastUpdate.GetSeconds() >= m_lastRtt.Get().GetSeconds())
+    uint32_t node_id = this->GetNode()->GetId();
+
+    // represent the node is an endhost ,the packet may with an ack
+    if ((node_id < 32))
     {
-      // std::cout << "update Segmentsize" << m_lastRtt.Get().GetSeconds() << std::endl;
-      MtuDecision mtuDecision;
-      // packet 中携带信息做决策
-      PriorityTag tag;
-      bool peekTag = p->PeekPacketTag(tag);
-      if (peekTag)
+      // have received the first ACK
+      if ((m_tcb->m_avgRtt != 0) && (m_tcb->m_currentRtt != 1))
       {
-        uint32_t flow_size = tag.GetFlowsizeTag();
-        double RTT = m_lastRtt.Get().GetSeconds() * 1000;
-        // double RTT = m_tcb->m_minRtt.GetMicroSeconds();
-        // cout the rtt , check whether it is 0
-        // std::cout << RTT << std::endl;
-        int bandwidth = int(tag.GetBandwidth());
-        int best_mtu = mtuDecision.FindBestMtu(flow_size, bandwidth, RTT, 0, 0);
-        // std::cout << "after update " << best_mtu << std::endl;
-        m_tcb->m_segmentSize = best_mtu - 40;
-        m_tcb->m_lastUpdate = Simulator::Now();
+        // std::cout << "have updated the RTT" << std::endl;
+        if (((double(Simulator::Now().GetMicroSeconds()) / 1000) - m_tcb->m_lastUpdate) > (adjust_interval * m_tcb->m_avgRtt))
+        {
+          MtuDecision mtuDecision;
+          // packet 中携带信息做决策
+          PriorityTag tag;
+          bool peekTag = p->PeekPacketTag(tag);
+          if (peekTag)
+          {
+            uint32_t flow_size = tag.GetFlowsizeTag();
+            uint32_t remaining_size = flow_size - tag.GetTotalTag();
+
+            // std::cout << this->GetNode()->GetNDevices();
+            uint32_t queueLength = DynamicCast<MultiQueue>(DynamicCast<MtuNetDevice>(this->GetNode()->GetDevice(1))->GetQueue())
+                                       ->GetPktsAhead(tag.GetPriorityTag());
+
+            // the RTT contains the trans delay and process delay, rx delay etc.
+            double RTT = this->m_tcb->m_currentRtt;
+            std::cout << "queueLength:" << queueLength << "tx delay " << double(queueLength) / (double(bandwidth) / 8) * 1000 << " trans_delay :"
+                      << double(this->m_tcb->m_segmentSize) / (double(bandwidth) / 8) * 1000
+                      << "rtt: " << RTT << std::endl;
+
+            int cwnd = m_tcb->m_cWnd;
+
+            int best_mtu = mtuDecision.FindBestMtu(remaining_size, RTT, cwnd);
+            m_tcb->m_segmentSize = best_mtu - 40;
+            m_tcb->m_lastUpdate = double(Simulator::Now().GetMicroSeconds()) / 1000;
+
+            // record the change
+            std::string filePath = "./data/mtu_update_record.csv";
+            std::ofstream file(filePath, std::ios::app);
+            file << tag.GetSeqTag() << "," << node_id << "," << Simulator::Now().GetSeconds() << "," << best_mtu << "," << queueLength << "," << flow_size << "," << RTT
+                 << "\n";
+          }
+        }
       }
     }
+
     /**
      * end of the addtion part
     */
@@ -3031,8 +3062,30 @@ namespace ns3
       // RFC 6298, clause 2.4
       m_rto = Max(m_rtt->GetEstimate() + Max(m_clockGranularity, m_rtt->GetVariation() * 4), m_minRto);
       m_lastRtt = m_rtt->GetEstimate();
+
       m_tcb->m_minRtt = m_lastRtt.Get() < m_tcb->m_minRtt ? m_lastRtt.Get() : m_tcb->m_minRtt;
       NS_LOG_INFO(this << m_lastRtt << m_tcb->m_minRtt);
+
+      /**
+       * addtion part begin
+      */
+      // if this is the ack packet for the first packet
+      if (m_tcb->m_avgRtt == 0)
+      {
+        m_tcb->m_avgRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
+        // std::cout << m_tcb->m_avgRtt << std::endl;
+      }
+      else
+      {
+        m_tcb->m_avgRtt = 0.9 * m_tcb->m_avgRtt + (0.1 * m_lastRtt.Get().GetMicroSeconds()) / 1000;
+        // std::cout << m_tcb->m_avgRtt << std::endl;
+      }
+
+      m_tcb->m_currentRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
+      // std::cout << "update the rtt" << std::endl;
+      /**
+       * addtion part ends
+      */
     }
   }
 

@@ -15,6 +15,41 @@
 #include <iostream>
 #include <fstream>
 
+/**
+ * \brief params needed in current mechanism
+ * 
+ * \param mode define whther adjust the mtu or priority
+ *        --- 0 open the priority, open the mtu adjustment
+ *        --- 1 open the priority, only choose the mtu at first
+ *        --- 2 open the priority, use 1500 as the MTU
+ *        --- 3 close the priority, open the mtu adjustment
+ *        --- 4 close the priority, only choose the mtu at first
+ *        --- 5 close the priority, use 1500 as the MTU
+ * \param adjust_interval check whether adjust the sending size every x interval
+ * \param bandwidth externed by mtu-net-helper and tcp-socket-base
+ * \param netdeviceQ_length queue length in netdevice, one device for each host, the id can be get by GetId()
+ * \param flowInfo use the given flowInfo obtained from the csv files
+*/
+uint32_t mode = 0;
+int adjust_interval = 6;
+std::string BANDWIDTH_LINK = "10Gbps";
+uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
+std::map<int, int> netdeviceQ_length;
+uint32_t initialCwnd = 9000;
+std::string TCP_PROTOCOL = "ns3::TcpNewReno";
+double LOSS_RATE = 0;
+double LOAD = 0.3;
+std::string PROPOGATION_DELAY = "10us";
+
+struct flow
+{
+    double startTime;
+    uint64_t flowSize;
+};
+std::vector<flow> flowInfo;
+
+// #define PROCESS_DELAY()
+
 namespace ns3
 {
     NS_LOG_COMPONENT_DEFINE("MtuNetHelper");
@@ -66,6 +101,55 @@ namespace ns3
         return applications;
     }
 
+    // read the info of flows from the csv file
+    // adapt to wan and datacenter
+    void MtuNetHelper::InstallAllApplications(NodeContainer fromServers, NodeContainer destServers, double requestRate, struct cdf_table *cdfTable,
+                                              std::vector<Ipv4Address> destAddresses, uint32_t &flowCount, int port_start, int port_end,
+                                              double timesim_start, double timesim_end, double time_flow_launch_end, double delay_prop,
+                                              double delay_process)
+    {
+        int src_leaf_node_count = fromServers.GetN();
+        int dst_leaf_node_count = destServers.GetN();
+        uint16_t port = port_start;
+        flowCount = flowInfo.size();
+
+        for (int i = 0; i < flowInfo.size(); i++)
+        {
+            port = port_start + i;
+            flow f = flowInfo[i];
+            double startTime = f.startTime;
+            uint64_t flowSize = f.flowSize;
+            uint32_t priority = 0;
+            if (mode == 0 || mode == 1 || mode == 2)
+                priority = MtuUtility::gen_priority(flowSize);
+
+            // select the src and dst
+            int srcIndex = MtuUtility::rand_range(0, src_leaf_node_count - 1);
+            int dstIndex = srcIndex;
+            while (dstIndex == srcIndex)
+            {
+                dstIndex = MtuUtility::rand_range(0, dst_leaf_node_count - 1);
+            }
+
+            int size = 1460;
+            if ((mode != 2) && (mode != 5))
+            {
+                // choose the best mtu
+                MtuDecision *md = new MtuDecision();
+                int bytesInQueue = DynamicCast<MultiQueue>(DynamicCast<MtuNetDevice>(fromServers.Get(srcIndex)->GetDevice(1))->GetQueue())->GetPktsAhead(priority);
+                int mtu = md->FindInitialBestMtu(flowSize, bytesInQueue, 3, delay_prop, delay_process, 0, initialCwnd);
+                // int mtu = md->FindBestMtuInDC(flowSize, bandwidth, delay_prop, 0, tx_delay, 0);
+                size = mtu - 40;
+            }
+
+            ApplicationContainer applications;
+            applications = InstallApplication(fromServers.Get(srcIndex), destServers.Get(dstIndex), destAddresses[dstIndex], port, flowSize, size, priority,
+                                              i, bandwidth);
+            applications.Start(Seconds(startTime));
+            applications.Stop(Seconds(timesim_end));
+        }
+    }
+
     //install applications in different enviroments
     void MtuNetHelper::InstallAllApplicationsInDC(NodeContainer fromServers, NodeContainer destServers, double requestRate, struct cdf_table *cdfTable,
                                                   std::vector<Ipv4Address> destAddress, uint32_t &flowCount, int port_start, int port_end, double timesim_start,
@@ -75,6 +159,7 @@ namespace ns3
         int src_leaf_node_count = fromServers.GetN();
         int dst_leaf_node_count = destServers.GetN();
         uint16_t port = port_start;
+
         for (int i = 0; i < src_leaf_node_count; i++)
         {
             double startTime = timesim_start + MtuUtility::poission_gen_interval(requestRate); //加泊松分布
@@ -93,8 +178,8 @@ namespace ns3
                 // select the best sendsize
                 int size = 1460;
                 MtuDecision *md = new MtuDecision();
-                int bestMtu = md->FindBestMtuInDC(flowSize, bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
-                size = bestMtu - 40;
+                // int bestMtu = md->FindBestMtuInDC(flowSize, bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
+                // size = bestMtu - 40;
 
                 ApplicationContainer applications;
                 applications = InstallApplication(fromServers.Get(i), destServers.Get(destIndex), destAddress[destIndex],
@@ -146,8 +231,8 @@ namespace ns3
                 // select the best sendsize
                 int size = 1460;
                 MtuDecision *md = new MtuDecision();
-                int bestMtu = md->FindBestMtuInWAN(flowSize, numOfSwitches, bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
-                size = bestMtu - 40;
+                // int bestMtu = md->FindBestMtuInWAN(flowSize, numOfSwitches, bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
+                // size = bestMtu - 40;
 
                 ApplicationContainer applications;
                 applications = InstallApplication(fromServers.Get(i), destServers.Get(destIndex), destAddress[destIndex],
@@ -191,9 +276,9 @@ namespace ns3
                 // if the dst server in WAN select the best sendsize
                 int size = 1460;
                 MtuDecision *md = new MtuDecision();
-                int bestMtu = md->FindBestMtuInMix(flowSize, numOfSwitches, bandwidth_dc, bandwidth_wan, delay_prop_dc,
-                                                   delay_prop_wan, delay_process_dc, delay_process_wan, delay_tx, delay_rx, src_type);
-                size = bestMtu - 40;
+                // int bestMtu = md->FindBestMtuInMix(flowSize, numOfSwitches, bandwidth_dc, bandwidth_wan, delay_prop_dc,
+                //    delay_prop_wan, delay_process_dc, delay_process_wan, delay_tx, delay_rx, src_type);
+                // size = bestMtu - 40;
 
                 ApplicationContainer applications;
                 applications = InstallApplication(fromServers.Get(i), destServers.Get(destIndex), destAddress[destIndex],
@@ -251,7 +336,7 @@ namespace ns3
         dev_a->data_fileName = data_fileName;
         dev_a->rtt = rtt;
         Ptr<MultiQueue> queueA = m_queueFactory.Create<MultiQueue>();
-        queueA->SetMaxPackets(100);
+        // queueA->SetMaxPackets(100);
         dev_a->SetQueue(queueA);
 
         Ptr<MtuNetDevice> dev_b = m_mtuDeviceFactory.Create<MtuNetDevice>();

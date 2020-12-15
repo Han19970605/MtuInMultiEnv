@@ -21,8 +21,12 @@ namespace ns3
         virtual Ptr<Packet> Remove(void);
         virtual Ptr<const Packet> Peek(void) const;
         void SetNumPriority(uint16_t pri_number, std::vector<double> weight);
-        // return the size in bytes
+        /**
+         * \brief GetTotalNumber return the size in bytes
+         * \brief GetPktsAhead get packets inbytes ahead 
+         */
         uint32_t GetTotalNumber(void);
+        uint32_t GetPktsAhead(uint32_t priority);
 
     private:
         //number of priorities

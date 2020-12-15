@@ -175,11 +175,6 @@ namespace ns3
     uint32_t m_initialCWnd{0};           //!< Initial cWnd value
     uint32_t m_initialSsThresh{0};       //!< Initial Slow Start Threshold value
 
-    /**
-     * add value for update the segmentsize
-    */
-    Time m_lastUpdate{0};
-
     // Segment
     uint32_t m_segmentSize{0};          //!< Segment size
     SequenceNumber32 m_lastAckedSeq{0}; //!< Last sequence ACKed
@@ -218,6 +213,17 @@ namespace ns3
     {
       return m_ssThresh / m_segmentSize;
     }
+
+    /**
+     * add for implement the be detection and rtt
+     * add value for update the segmentsize
+    */
+    double m_lastUpdate{0};
+    // use m_rtt.getestimate()来估计
+    double m_currentRtt{0.0};
+    double m_avgRtt{0.0};
+    uint64_t m_avg_queSize;
+    // std::map<int, int> m_seqRecord;
   };
 
   /**
@@ -556,12 +562,6 @@ namespace ns3
    */
     typedef void (*TcpTxRxTracedCallback)(const Ptr<const Packet> packet, const TcpHeader &header,
                                           const Ptr<const TcpSocketBase> socket);
-
-    /**
-     * add a function  return the tcb
-     * 
-    */
-    Ptr<TcpSocketState> GetTcpState(void);
 
   protected:
     // Implementing ns3::TcpSocket -- Attribute get/set
@@ -1170,13 +1170,13 @@ namespace ns3
     uint32_t m_dataRetries{0};   //!< Number of data retransmission attempts
 
     // Timeouts
-    TracedValue<Time> m_rto{Seconds(0.0)};     //!< Retransmit timeout
-    Time m_minRto{Time::Max()};                //!< minimum value of the Retransmit timeout
-    TracedValue<Time> m_lastRtt{Seconds(0.0)}; //!< Last RTT sample collected
-    Time m_clockGranularity{Seconds(0.001)};   //!< Clock Granularity used in RTO calcs
-    Time m_delAckTimeout{Seconds(0.0)};        //!< Time to delay an ACK
-    Time m_persistTimeout{Seconds(0.0)};       //!< Time between sending 1-byte probes
-    Time m_cnTimeout{Seconds(0.0)};            //!< Timeout for connection retry
+    TracedValue<Time> m_rto{Seconds(0.0)};         //!< Retransmit timeout
+    Time m_minRto{Time::Max()};                    //!< minimum value of the Retransmit timeout
+    TracedValue<Time> m_lastRtt{Seconds(0.0)};     //!< Last RTT sample collected
+    Time m_clockGranularity{Seconds(0.000000001)}; //!< Clock Granularity used in RTO calcs
+    Time m_delAckTimeout{Seconds(0.0)};            //!< Time to delay an ACK
+    Time m_persistTimeout{Seconds(0.0)};           //!< Time between sending 1-byte probes
+    Time m_cnTimeout{Seconds(0.0)};                //!< Timeout for connection retry
 
     // History of RTT
     std::deque<RttHistory> m_history; //!< List of sent packet

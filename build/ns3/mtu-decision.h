@@ -38,35 +38,31 @@ namespace ns3
                                double delay_trans_wan, uint32_t numOfSwitches);
 
         /**
-         * Round = RTT + Delay_tx +Delay_rx
+         * computeInitialRound use the initial set params to compute
          * trans_time for single packet = (Mtu+38)*8/bandwidth*1000
+         * in the next part directly use the rtt as the round
         */
-        double ComputeRound(double delay_tx, double delay_rx, double RTT);
+        double ComputeInitialRound(int mtu, int bytesInQueue, int numOfSwitches, int singleHopProp, int singleHopProcess, double rxDelay);
+        // double ComputeRound(double delay_tx, double delay_rx, double RTT);
 
         /**
-         * compute FCT with RTT
-         * flowsize = total amount of data
-         * the unit of bandwidth = bytes/s
-         * the unit of RTT = ms
-         * type = WAN or Datacenter
+         * \param flowSize the size of flow
+         * \param mtu
+         * \param round the time from sending the packet until sending the next cwnd
+         * \param cwnd current cwnd
         */
-        double ComputeFCT(int flowsize, int bandwidth, int mtu, double RTT, double delay_tx, double delay_rx);
-
-        /**
-         * compute FCT in DC
-        */
-        // double
-        // computeFCTInDC(int flowsize, int bandwidth, int mtu, double delay_prop, double delay_process);
+        double ComputeFCT(int flowSize, int mtu, double round, uint32_t cwnd);
 
         /**
          * find the best mtu with different RTT and flowsize
          * In findBestMtuInMix==> end_tx = wan or dc
         */
-        int FindBestMtu(int flowsize, int bandwidth, double RTT, double delay_tx, double delay_rx);
-        int FindBestMtuInDC(int flowsize, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx);
-        int FindBestMtuInWAN(int flowsize, int numOfSwitches, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx);
-        int FindBestMtuInMix(int flowsize, int numOfSwitches, int bandwidth_dc, int bandwidth_wan, double delay_prop_dc, double delay_prop_wan,
-                             double delay_process_dc, double delay_process_wan, double delay_tx, double delay_rx, std::string src_tx);
+        int FindInitialBestMtu(int flowSize, int bytesInQueue, int numOfSwitches, int singleHopProp, int singleHopProcess, double rxDelay, uint32_t cwnd);
+        int FindBestMtu(int flowSize, double round, uint32_t cwnd);
+        // int FindBestMtuInDC(int flowsize, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx);
+        // int FindBestMtuInWAN(int flowsize, int numOfSwitches, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx);
+        // int FindBestMtuInMix(int flowsize, int numOfSwitches, int bandwidth_dc, int bandwidth_wan, double delay_prop_dc, double delay_prop_wan,
+        //                      double delay_process_dc, double delay_process_wan, double delay_tx, double delay_rx, std::string src_tx);
 
         /**
          * number of packets transmitted in a round
@@ -76,7 +72,7 @@ namespace ns3
         /**
          * continuous sending data from the n+1 round, compute the number n
         */
-        int ComputeRoundNum(int packetNum);
+        int ComputeRoundNum(int packetNum, int segmentsNum);
 
         /**
          * the rounds that are unfilled
