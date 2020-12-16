@@ -11,7 +11,7 @@
 #include <fstream>
 
 #define START_TIME 0.0
-#define END_TIME 10
+#define END_TIME 50
 
 // 128M
 #define BUFFER_SIZE 134217728

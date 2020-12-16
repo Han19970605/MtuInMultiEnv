@@ -2244,6 +2244,7 @@ namespace ns3
   void TcpSocketBase::SendEmptyPacket(uint8_t flags)
   {
     NS_LOG_FUNCTION(this << static_cast<uint32_t>(flags));
+    // std::cout << "received packet and send an ack " << Simulator::Now().GetMicroSeconds() << " " << Simulator::Now().GetSeconds() << std::endl;
 
     if (m_endPoint == nullptr && m_endPoint6 == nullptr)
     {
@@ -2577,7 +2578,7 @@ namespace ns3
     if ((node_id < 32))
     {
       // have received the first ACK
-      if ((m_tcb->m_avgRtt != 0) && (m_tcb->m_currentRtt != 1))
+      if ((m_tcb->m_avgRtt != 0))
       {
         // std::cout << "have updated the RTT" << std::endl;
         if (((double(Simulator::Now().GetMicroSeconds()) / 1000) - m_tcb->m_lastUpdate) > (adjust_interval * m_tcb->m_avgRtt))
@@ -2602,8 +2603,8 @@ namespace ns3
                       << "rtt: " << RTT << std::endl;
 
             int cwnd = m_tcb->m_cWnd;
-
             int best_mtu = mtuDecision.FindBestMtu(remaining_size, RTT, cwnd);
+
             m_tcb->m_segmentSize = best_mtu - 40;
             m_tcb->m_lastUpdate = double(Simulator::Now().GetMicroSeconds()) / 1000;
 
@@ -3037,6 +3038,10 @@ namespace ns3
           Ptr<const TcpOptionTS> ts;
           ts = DynamicCast<const TcpOptionTS>(tcpHeader.GetOption(TcpOption::TS));
           m = TcpOptionTS::ElapsedTimeFromTsValue(ts->GetEcho());
+
+          Time t = TcpOptionTS::ElapsedTimeFromTsValue(ts->GetTimestamp());
+          //回显时间是指数据包发出去的时间
+          // std::cout << "if open the ts option?" << m.GetMicroSeconds() << std::endl;
         }
         else
         {
@@ -3059,6 +3064,7 @@ namespace ns3
     if (!m.IsZero())
     {
       m_rtt->Measurement(m); // Log the measurement
+
       // RFC 6298, clause 2.4
       m_rto = Max(m_rtt->GetEstimate() + Max(m_clockGranularity, m_rtt->GetVariation() * 4), m_minRto);
       m_lastRtt = m_rtt->GetEstimate();
@@ -3070,6 +3076,7 @@ namespace ns3
        * addtion part begin
       */
       // if this is the ack packet for the first packet
+
       if (m_tcb->m_avgRtt == 0)
       {
         m_tcb->m_avgRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
@@ -3077,11 +3084,11 @@ namespace ns3
       }
       else
       {
-        m_tcb->m_avgRtt = 0.9 * m_tcb->m_avgRtt + (0.1 * m_lastRtt.Get().GetMicroSeconds()) / 1000;
-        // std::cout << m_tcb->m_avgRtt << std::endl;
+        m_tcb->m_avgRtt = 0.5 * m_tcb->m_avgRtt + (0.5 * m_lastRtt.Get().GetMicroSeconds()) / 1000;
       }
 
       m_tcb->m_currentRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
+      // std::cout << m_tcb->m_currentRtt << std::endl;
       // std::cout << "update the rtt" << std::endl;
       /**
        * addtion part ends

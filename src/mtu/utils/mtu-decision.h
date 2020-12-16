@@ -42,7 +42,7 @@ namespace ns3
          * trans_time for single packet = (Mtu+38)*8/bandwidth*1000
          * in the next part directly use the rtt as the round
         */
-        double ComputeInitialRound(int mtu, int bytesInQueue, int numOfSwitches, int singleHopProp, int singleHopProcess, double rxDelay);
+        double ComputeInitialRound(int mtu, int bytesInQueue, int numOfSwitches, double singleHopProp, double singleHopProcess, double rxDelay);
         // double ComputeRound(double delay_tx, double delay_rx, double RTT);
 
         /**
@@ -57,7 +57,7 @@ namespace ns3
          * find the best mtu with different RTT and flowsize
          * In findBestMtuInMix==> end_tx = wan or dc
         */
-        int FindInitialBestMtu(int flowSize, int bytesInQueue, int numOfSwitches, int singleHopProp, int singleHopProcess, double rxDelay, uint32_t cwnd);
+        int FindInitialBestMtu(int flowSize, int bytesInQueue, int numOfSwitches, double singleHopProp, double singleHopProcess, double rxDelay, uint32_t cwnd);
         int FindBestMtu(int flowSize, double round, uint32_t cwnd);
         // int FindBestMtuInDC(int flowsize, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx);
         // int FindBestMtuInWAN(int flowsize, int numOfSwitches, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx);

@@ -140,10 +140,13 @@ void MtuBulkSendApplication::StartApplication(void)
     if (!m_socket)
     {
         m_socket = Socket::CreateSocket(GetNode(), m_tid);
+        // tcp_socket
         Ptr<TcpSocketBase> tcp_socket = DynamicCast<TcpSocketBase>(m_socket);
         tcp_socket->SetAttribute("SegmentSize", UintegerValue(m_sendSize));
-        // tcp_socket
+        uint32_t initial_cwnd = 9000 / m_sendSize;
+        tcp_socket->SetAttribute("InitialCwnd", UintegerValue(initial_cwnd));
         m_socket = tcp_socket;
+
         // the buffer for socket
         // Ptr<TcpSocketBase> tcp_socketbase = DynamicCast<TcpSocketBase>(tcp_socket);
         // tcp_socketbase->GetTxBuffer()->TraceConnectWithoutContext("BufferSize", MakeCallback(&bufferTrace));

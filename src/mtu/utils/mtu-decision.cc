@@ -12,7 +12,7 @@ namespace ns3
 
     MtuDecision::MtuDecision()
     {
-        int mtus[] = {1500, 3000, 4500, 9000};
+        int mtus[] = {1540, 3040, 4540, 9040};
         std::vector<int> mtu_vector(mtus, mtus + sizeof(mtus) / sizeof(mtus[0]));
         array_mtu = mtu_vector;
     }
@@ -54,10 +54,10 @@ namespace ns3
     }
 
     /**
-     * TIME FORMAT TO us
+     * TIME FORMAT TO ms
      * applicable to mtu and wan 
     */
-    double MtuDecision::ComputeInitialRound(int mtu, int bytesInQueue, int numOfSwitches, int singleHopProp, int singleHopProcess, double rxDelay)
+    double MtuDecision::ComputeInitialRound(int mtu, int bytesInQueue, int numOfSwitches, double singleHopProp, double singleHopProcess, double rxDelay)
     {
         double transDelay = double(mtu + 38) * 8 / double(bandwidth) * 1000;
         double queuingDelay = double(bytesInQueue) * 8 / double(bandwidth) * 1000;
@@ -78,7 +78,7 @@ namespace ns3
         int packets = flowSize / mss;
         int remainBytes = flowSize - packets * mss;
 
-        int roundNum = ComputeRoundNum(ComputePacketNum(round, mtu, bandwidth), cwnd / mtu);
+        int roundNum = ComputeRoundNum(ComputePacketNum(round, mtu, bandwidth), cwnd / mss);
         int packetNum = pow(2, roundNum) - 1;
 
         // end transmission before fulfill the bandwidth
@@ -101,7 +101,7 @@ namespace ns3
         return FCT;
     }
 
-    int MtuDecision::FindInitialBestMtu(int flowSize, int bytesInQueue, int numOfSwitches, int singleHopProp, int singleHopProcess, double rxDelay, uint32_t cwnd)
+    int MtuDecision::FindInitialBestMtu(int flowSize, int bytesInQueue, int numOfSwitches, double singleHopProp, double singleHopProcess, double rxDelay, uint32_t cwnd)
     {
         int bestMTU = array_mtu[0];
         double round = ComputeInitialRound(bestMTU, bytesInQueue, numOfSwitches, singleHopProp, singleHopProcess, rxDelay);
@@ -111,102 +111,36 @@ namespace ns3
         {
             // trans_delay = (array_mtu[i] + 38) * 8 / bandwidth * 1000;
             round = ComputeInitialRound(array_mtu[i], bytesInQueue, numOfSwitches, singleHopProp, singleHopProcess, rxDelay);
-            if (ComputeFCT(flowSize, bestMTU, round, cwnd) < FCT)
+            if (ComputeFCT(flowSize, array_mtu[i], round, cwnd) < FCT)
             {
                 bestMTU = array_mtu[i];
-                FCT = ComputeFCT(flowSize, bestMTU, round, cwnd);
+                FCT = ComputeFCT(flowSize, array_mtu[i], round, cwnd);
             }
+            // std::cout << "the mtu is " << array_mtu[i] << "the fct is: " << ComputeFCT(flowSize, array_mtu[i], round, cwnd) << " " << round << std::endl;
         }
-        std::cout << "the best mtu is " << bestMTU << std::endl;
+        // std::cout << "the best mtu is " << bestMTU << std::endl;
         return bestMTU;
     }
 
     int MtuDecision::FindBestMtu(int flowSize, double round, uint32_t cwnd)
     {
         int bestMTU = array_mtu[0];
+
         double FCT = ComputeFCT(flowSize, bestMTU, round, cwnd);
 
         for (int i = 0; i < array_mtu.size(); i++)
         {
+            if (array_mtu[i] > cwnd)
+                break;
             // trans_delay = (array_mtu[i] + 38) * 8 / bandwidth * 1000;
-            if (ComputeFCT(flowSize, bestMTU, round, cwnd) < FCT)
+            if (ComputeFCT(flowSize, array_mtu[i], round, cwnd) < FCT)
             {
                 bestMTU = array_mtu[i];
-                FCT = ComputeFCT(flowSize, bestMTU, round, cwnd);
+                FCT = ComputeFCT(flowSize, array_mtu[i], round, cwnd);
             }
         }
         return bestMTU;
     }
-
-    // int MtuDecision::FindBestMtuInDC(int flowsize, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx)
-    // {
-    //     int bestMTU = array_mtu[0];
-    //     double trans_delay = (bestMTU + 38) * 8 / bandwidth * 1000;
-    //     double RTT = ComputeRTTInDC(delay_prop, trans_delay, delay_process);
-    //     double FCT = ComputeFCT(flowsize, bandwidth, bestMTU, RTT, delay_tx, delay_rx);
-    //     for (int i = 0; i < array_mtu.size(); i++)
-    //     {
-    //         trans_delay = (array_mtu[i] + 38) * 8 / bandwidth * 1000;
-    //         RTT = ComputeRTTInDC(delay_prop, trans_delay, delay_process);
-    //         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
-    //         {
-    //             bestMTU = array_mtu[i];
-    //             FCT = ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx);
-    //         }
-    //     }
-    //     return bestMTU;
-    // }
-
-    // int MtuDecision::FindBestMtuInWAN(int flowsize, int numOfSwitches, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx)
-    // {
-    //     int bestMTU = array_mtu[0];
-    //     double trans_delay = (bestMTU + 38) * 8 / bandwidth * 1000;
-    //     double RTT = ComputeRTTInWAN(numOfSwitches, delay_prop, trans_delay, delay_process);
-    //     double FCT = ComputeFCT(flowsize, bandwidth, bestMTU, RTT, delay_tx, delay_rx);
-    //     for (int i = 0; i < array_mtu.size(); i++)
-    //     {
-    //         trans_delay = (array_mtu[i] + 38) * 8 / bandwidth * 1000;
-    //         RTT = ComputeRTTInWAN(numOfSwitches, delay_prop, trans_delay, delay_process);
-    //         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
-    //         {
-    //             bestMTU = array_mtu[i];
-    //             FCT = ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx);
-    //         }
-    //     }
-
-    //     return bestMTU;
-    // }
-
-    // int MtuDecision::FindBestMtuInMix(int flowsize, int numOfSwitches, int bandwidth_dc, int bandwidth_wan, double delay_prop_dc, double delay_prop_wan,
-    //                                   double delay_process_dc, double delay_process_wan, double delay_tx, double delay_rx, std::string src_tx)
-    // {
-    //     int bestMTU = array_mtu[0];
-    //     double trans_delay_dc = (bestMTU + 38) * 8 / bandwidth_dc * 1000;
-    //     double trans_delay_wan = (bestMTU + 38) * 8 / bandwidth_wan * 1000;
-    //     double RTT = ComputeRTTInMix(delay_prop_dc, delay_prop_wan, delay_process_wan, delay_process_dc, trans_delay_dc, trans_delay_wan, numOfSwitches);
-    //     int bandwidth;
-    //     if (src_tx == "wan")
-    //     {
-    //         bandwidth = bandwidth_wan;
-    //     }
-    //     else if (src_tx == "dc")
-    //     {
-    //         bandwidth = bandwidth_dc;
-    //     }
-    //     double FCT = ComputeFCT(flowsize, bandwidth, bestMTU, RTT, delay_tx, delay_rx);
-    //     for (int i = 0; i < array_mtu.size(); i++)
-    //     {
-    //         trans_delay_dc = (array_mtu[i] + 38) * 8 / bandwidth_dc * 1000;
-    //         trans_delay_wan = (array_mtu[i] + 38) * 8 / bandwidth_wan * 1000;
-    //         RTT = ComputeRTTInMix(delay_prop_dc, delay_prop_wan, delay_process_wan, delay_process_dc, trans_delay_dc, trans_delay_wan, numOfSwitches);
-    //         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
-    //         {
-    //             bestMTU = array_mtu[i];
-    //             FCT = ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx);
-    //         }
-    //     }
-    //     return bestMTU;
-    // }
 
     int MtuDecision::ComputePacketNum(double roundTime, int Mtu, int bandwidth)
     {
@@ -304,6 +238,75 @@ namespace ns3
 //     double FCT = ComputeFCT(flowsize, bandwidth, array_mtu[0], RTT, delay_tx, delay_rx);
 //     for (int i = 0; i < array_mtu.size(); i++)
 //     {
+//         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
+//         {
+//             bestMTU = array_mtu[i];
+//             FCT = ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx);
+//         }
+//     }
+//     return bestMTU;
+// }
+// int MtuDecision::FindBestMtuInDC(int flowsize, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx)
+// {
+//     int bestMTU = array_mtu[0];
+//     double trans_delay = (bestMTU + 38) * 8 / bandwidth * 1000;
+//     double RTT = ComputeRTTInDC(delay_prop, trans_delay, delay_process);
+//     double FCT = ComputeFCT(flowsize, bandwidth, bestMTU, RTT, delay_tx, delay_rx);
+//     for (int i = 0; i < array_mtu.size(); i++)
+//     {
+//         trans_delay = (array_mtu[i] + 38) * 8 / bandwidth * 1000;
+//         RTT = ComputeRTTInDC(delay_prop, trans_delay, delay_process);
+//         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
+//         {
+//             bestMTU = array_mtu[i];
+//             FCT = ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx);
+//         }
+//     }
+//     return bestMTU;
+// }
+
+// int MtuDecision::FindBestMtuInWAN(int flowsize, int numOfSwitches, int bandwidth, double delay_prop, double delay_process, double delay_tx, double delay_rx)
+// {
+//     int bestMTU = array_mtu[0];
+//     double trans_delay = (bestMTU + 38) * 8 / bandwidth * 1000;
+//     double RTT = ComputeRTTInWAN(numOfSwitches, delay_prop, trans_delay, delay_process);
+//     double FCT = ComputeFCT(flowsize, bandwidth, bestMTU, RTT, delay_tx, delay_rx);
+//     for (int i = 0; i < array_mtu.size(); i++)
+//     {
+//         trans_delay = (array_mtu[i] + 38) * 8 / bandwidth * 1000;
+//         RTT = ComputeRTTInWAN(numOfSwitches, delay_prop, trans_delay, delay_process);
+//         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
+//         {
+//             bestMTU = array_mtu[i];
+//             FCT = ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx);
+//         }
+//     }
+
+//     return bestMTU;
+// }
+
+// int MtuDecision::FindBestMtuInMix(int flowsize, int numOfSwitches, int bandwidth_dc, int bandwidth_wan, double delay_prop_dc, double delay_prop_wan,
+//                                   double delay_process_dc, double delay_process_wan, double delay_tx, double delay_rx, std::string src_tx)
+// {
+//     int bestMTU = array_mtu[0];
+//     double trans_delay_dc = (bestMTU + 38) * 8 / bandwidth_dc * 1000;
+//     double trans_delay_wan = (bestMTU + 38) * 8 / bandwidth_wan * 1000;
+//     double RTT = ComputeRTTInMix(delay_prop_dc, delay_prop_wan, delay_process_wan, delay_process_dc, trans_delay_dc, trans_delay_wan, numOfSwitches);
+//     int bandwidth;
+//     if (src_tx == "wan")
+//     {
+//         bandwidth = bandwidth_wan;
+//     }
+//     else if (src_tx == "dc")
+//     {
+//         bandwidth = bandwidth_dc;
+//     }
+//     double FCT = ComputeFCT(flowsize, bandwidth, bestMTU, RTT, delay_tx, delay_rx);
+//     for (int i = 0; i < array_mtu.size(); i++)
+//     {
+//         trans_delay_dc = (array_mtu[i] + 38) * 8 / bandwidth_dc * 1000;
+//         trans_delay_wan = (array_mtu[i] + 38) * 8 / bandwidth_wan * 1000;
+//         RTT = ComputeRTTInMix(delay_prop_dc, delay_prop_wan, delay_process_wan, delay_process_dc, trans_delay_dc, trans_delay_wan, numOfSwitches);
 //         if (ComputeFCT(flowsize, bandwidth, array_mtu[i], RTT, delay_tx, delay_rx) < FCT)
 //         {
 //             bestMTU = array_mtu[i];

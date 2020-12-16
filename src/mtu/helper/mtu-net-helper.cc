@@ -32,14 +32,15 @@
 */
 uint32_t mode = 0;
 int adjust_interval = 6;
-std::string BANDWIDTH_LINK = "10Gbps";
+std::string BANDWIDTH_LINK = "1Gbps";
 uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
 std::map<int, int> netdeviceQ_length;
 uint32_t initialCwnd = 9000;
 std::string TCP_PROTOCOL = "ns3::TcpNewReno";
 double LOSS_RATE = 0;
 double LOAD = 0.3;
-std::string PROPOGATION_DELAY = "10us";
+std::string PROPOGATION_DELAY = "100us";
+int numOfSwitches = 3;
 
 struct flow
 {
@@ -112,10 +113,17 @@ namespace ns3
         int dst_leaf_node_count = destServers.GetN();
         uint16_t port = port_start;
         flowCount = flowInfo.size();
+        std::cout << "begin install applications" << std::endl;
 
         for (int i = 0; i < flowInfo.size(); i++)
         {
             port = port_start + i;
+            if (port >= port_end)
+            {
+                std::cout << port << std::endl;
+                break;
+            }
+
             flow f = flowInfo[i];
             double startTime = f.startTime;
             uint64_t flowSize = f.flowSize;
@@ -139,6 +147,7 @@ namespace ns3
                 int bytesInQueue = DynamicCast<MultiQueue>(DynamicCast<MtuNetDevice>(fromServers.Get(srcIndex)->GetDevice(1))->GetQueue())->GetPktsAhead(priority);
                 int mtu = md->FindInitialBestMtu(flowSize, bytesInQueue, 3, delay_prop, delay_process, 0, initialCwnd);
                 // int mtu = md->FindBestMtuInDC(flowSize, bandwidth, delay_prop, 0, tx_delay, 0);
+                // std::cout << "the best mtu is " << mtu << std::endl;
                 size = mtu - 40;
             }
 

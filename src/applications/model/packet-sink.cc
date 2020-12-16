@@ -180,24 +180,6 @@ namespace ns3
       }
       m_totalRx += packet->GetSize();
 
-      PriorityTag tag;
-      bool found = packet->PeekPacketTag(tag);
-      if (found)
-        std::cout << m_totalRx << "flowsize " << tag.GetFlowsizeTag() << " " << std::endl;
-      // if (found)
-      // {
-      //   // its a data packet
-      //   if (m_totalRx >= tag.GetFlowsizeTag())
-      //   {
-      //     std::cout << "the flow id is " << tag.GetSeqTag() << " flow size: " << tag.GetFlowsizeTag()
-      //               << " sent bytes: " << tag.GetTotalTag() << " packet size: " << packet->GetSize() << std::endl;
-      //     std::string fileName = "data/FCT.csv";
-      //     std::ofstream file(fileName, std::ios::app);
-      //     file << tag.GetSeqTag() << "," << tag.GetFlowsizeTag() << ","
-      //          << (Simulator::Now().GetNanoSeconds() - tag.GetTimeStamp()) << "\n";
-      //   }
-      // }
-
       if (InetSocketAddress::IsMatchingType(from))
       {
         NS_LOG_INFO("At time " << Simulator::Now().GetSeconds()

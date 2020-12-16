@@ -24,10 +24,12 @@
 
 extern int adjust_interval;
 extern std::string BANDWIDTH_LINK;
+extern uint64_t bandwidth;
 extern std::string TCP_PROTOCOL;
 extern double LOAD;
 extern double LOSS_RATE;
 extern std::string PROPOGATION_DELAY;
+extern int numOfSwitches;
 // extern std::map<int, int> netdeviceQ_length;
 
 struct flow
@@ -66,7 +68,6 @@ int main(int argc, char *argv[])
     Config::SetDefault("ns3::PointToPointNetDevice::Mtu", UintegerValue(MTU));
 
     // set the rto
-    uint64_t rtt = Time(PROPOGATION_DELAY).GetNanoSeconds() * 8;
     double rto = Time(PROPOGATION_DELAY).GetSeconds() * 8 * 5;
     Config::SetDefault("ns3::TcpSocketBase::MinRto", TimeValue(Seconds(rto)));
 
@@ -144,15 +145,13 @@ int main(int argc, char *argv[])
     stackHelper.Install(leafs);
     stackHelper.Install(ends);
 
-    //forwarding delay in switches, half for each netdevice
-    //1968 nanoseconds for 10G prots, 4587 nanoseconds for GE ports, 5928nanoseconds for 100M ports
-    uint32_t delay = 4587;
-
     MtuNetHelper netHelper;
 
+    uint64_t rtt = Time(PROPOGATION_DELAY).GetNanoSeconds() * 8 + (double(1500 * 8) * 10000 / double(bandwidth) * 100000) * (numOfSwitches + 1);
     netHelper.SetDeviceAttribute("DataRate", StringValue(BANDWIDTH_LINK));
     netHelper.SetChannelAttribute("Delay", StringValue(PROPOGATION_DELAY));
     netHelper.data_fileName = FCT_fileName;
+    netHelper.rtt = rtt;
 
     NetDeviceContainer devices_e0l0 = netHelper.InstallNormalNetDevices(ends.Get(0), leafs.Get(0));
     NetDeviceContainer devices_e1l0 = netHelper.InstallNormalNetDevices(ends.Get(1), leafs.Get(0));
@@ -355,16 +354,16 @@ int main(int argc, char *argv[])
     dstAddress.push_back(interface_e30l3.GetAddress(0));
     dstAddress.push_back(interface_e31l3.GetAddress(0));
 
+    //forwarding delay in switches, half for each netdevice
+    //1968 nanoseconds for 10G prots, 4587 nanoseconds for GE ports, 5928nanoseconds for 100M ports
+    // uint32_t delay = 4587;
+
     uint32_t flowCount = 0;
     double delay_prop = double(Time(PROPOGATION_DELAY).GetMicroSeconds()) / 1000;
+    std::cout << delay_prop << std::endl;
     double delay_process, delay_tx, delay_rx = 0;
     double end_gen_time = 64535.0 / request_rate / 32;
     uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
-
-    netHelper.InstallAllApplicationsInDC(ends, ends, request_rate, cdfTable, dstAddress, flowCount, PORT_START, PORT_END, START_TIME, END_TIME, end_gen_time,
-                                         bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
-    //     netHelper.InstallAllApplications(ends, ends, request_rate, cdfTable,
-    //                                      dstAddress, flowCount, PORT_START, PORT_END, MSS, START_TIME, END_TIME, END_TIME, bandwidth, delay_prop);
 
     netHelper.InstallAllApplications(ends, ends, request_rate, cdfTable, dstAddress, flowCount, PORT_START, PORT_END, START_TIME, END_TIME, END_TIME,
                                      delay_prop, delay_process);
