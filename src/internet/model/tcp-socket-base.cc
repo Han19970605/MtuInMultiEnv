@@ -66,10 +66,15 @@
 #include "ns3/mtu-net-device.h"
 #include <fstream>
 
-// extern std::string BANDWIDTH_LINK;
+extern std::string BANDWIDTH_LINK;
 extern uint64_t bandwidth;
 extern int adjust_interval;
+extern double LOAD;
+extern double LOSS_RATE;
+extern std::string PROPOGATION_DELAY;
 extern std::map<int, int> netdeviceQ_length;
+extern std::string TCP_PROTOCOL;
+extern uint32_t mode;
 
 namespace ns3
 {
@@ -1587,6 +1592,22 @@ namespace ns3
     uint32_t oldDupAckCount = m_dupAckCount; // remember the old value
     m_tcb->m_lastAckedSeq = ackNumber;       // Update lastAckedSeq
 
+    if ((m_tcb->m_flowSize != 0) && (ackNumber.GetValue() >= m_tcb->m_flowSize))
+    {
+      //统计流完成时间
+      // std::cout << "this is the last packet,the sequence is " << ackSeq.GetValue() << " the flow size is " << m_tcb->m_flowSize << std::endl;
+      // std::cout << DynamicCast<MtuNetDevice>(this->GetNode()->GetDevice(1))->data_fileName << std::endl;
+      std::string filename = DynamicCast<MtuNetDevice>(this->GetNode()->GetDevice(1))->data_fileName;
+      std::string FCT_filename = (std::string("./data/")).append(filename).append(std::string(".csv"));
+      std::ofstream file(FCT_filename, std::ios::app);
+      uint32_t node_id = this->GetNode()->GetId();
+      uint64_t fct = Simulator::Now().GetNanoSeconds() - m_tcb->m_startTime;
+      uint32_t prop_delay = uint32_t(Time(PROPOGATION_DELAY).GetMicroSeconds());
+      file << node_id << "," << m_tcb->m_flowid << "," << TCP_PROTOCOL << "," << LOSS_RATE << "," << prop_delay
+           << "," << m_tcb->m_flowSize << "," << fct << "," << Simulator::Now().GetNanoSeconds() << "\n";
+      file.close();
+    }
+
     /* In RFC 5681 the definition of duplicate acknowledgment was strict:
    *
    * (a) the receiver of the ACK has outstanding data,
@@ -2572,16 +2593,31 @@ namespace ns3
     /**
      * \brief check whether need to update the segmentsize per RTT
     */
+
     uint32_t node_id = this->GetNode()->GetId();
 
+    PriorityTag tag;
+    bool peekTag = p->PeekPacketTag(tag);
+    if (peekTag)
+    {
+      uint32_t flow_size = tag.GetFlowsizeTag();
+      if (seq.GetValue() == 1)
+      {
+        // std::cout << "a new flow begins" << std::endl;
+        m_tcb->m_startTime = Simulator::Now().GetNanoSeconds();
+        m_tcb->m_flowSize = flow_size;
+        m_tcb->m_flowid = tag.GetSeqTag();
+      }
+    }
+
     // represent the node is an endhost ,the packet may with an ack
-    if ((node_id < 32))
+    if ((node_id < 32) && (mode == 0 || mode == 3))
     {
       // have received the first ACK
       if ((m_tcb->m_avgRtt != 0))
       {
         // std::cout << "have updated the RTT" << std::endl;
-        if (((double(Simulator::Now().GetMicroSeconds()) / 1000) - m_tcb->m_lastUpdate) > (adjust_interval * m_tcb->m_avgRtt))
+        if (((double(Simulator::Now().GetMicroSeconds()) / 1000) - m_tcb->m_lastUpdate) > (adjust_interval * m_tcb->m_currentRtt))
         {
           MtuDecision mtuDecision;
           // packet 中携带信息做决策
@@ -2598,21 +2634,25 @@ namespace ns3
 
             // the RTT contains the trans delay and process delay, rx delay etc.
             double RTT = this->m_tcb->m_currentRtt;
-            std::cout << "queueLength:" << queueLength << "tx delay " << double(queueLength) / (double(bandwidth) / 8) * 1000 << " trans_delay :"
-                      << double(this->m_tcb->m_segmentSize) / (double(bandwidth) / 8) * 1000
-                      << "rtt: " << RTT << std::endl;
+            // std::cout << "queueLength:" << queueLength << "tx delay " << double(queueLength) / (double(bandwidth) / 8) * 1000 << " trans_delay :"
+            //           << double(this->m_tcb->m_segmentSize) / (double(bandwidth) / 8) * 1000
+            //           << "rtt: " << RTT << std::endl;
 
             int cwnd = m_tcb->m_cWnd;
             int best_mtu = mtuDecision.FindBestMtu(remaining_size, RTT, cwnd);
 
+            if (m_tcb->m_segmentSize != (best_mtu - 40))
+            {
+              // record the change
+              std::string filePath = "./data/mtu_update_record";
+              filePath = filePath.append(BANDWIDTH_LINK).append("_").append(std::to_string(mode)).append(".csv");
+              std::ofstream file(filePath, std::ios::app);
+              file << tag.GetSeqTag() << "," << node_id << "," << Simulator::Now().GetSeconds() << "," << best_mtu << "," << queueLength << "," << flow_size << "," << RTT
+                   << "\n";
+            }
+
             m_tcb->m_segmentSize = best_mtu - 40;
             m_tcb->m_lastUpdate = double(Simulator::Now().GetMicroSeconds()) / 1000;
-
-            // record the change
-            std::string filePath = "./data/mtu_update_record.csv";
-            std::ofstream file(filePath, std::ios::app);
-            file << tag.GetSeqTag() << "," << node_id << "," << Simulator::Now().GetSeconds() << "," << best_mtu << "," << queueLength << "," << flow_size << "," << RTT
-                 << "\n";
           }
         }
       }
@@ -3075,21 +3115,23 @@ namespace ns3
       /**
        * addtion part begin
       */
-      // if this is the ack packet for the first packet
-
-      if (m_tcb->m_avgRtt == 0)
+      // if this is the ack packet for the first packet,but not an SYN packet
+      uint8_t tcpflags = tcpHeader.GetFlags() & ~(TcpHeader::PSH | TcpHeader::URG);
+      if ((tcpflags & TcpHeader::ACK) & ~(tcpflags & TcpHeader::SYN))
       {
-        m_tcb->m_avgRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
-        // std::cout << m_tcb->m_avgRtt << std::endl;
-      }
-      else
-      {
-        m_tcb->m_avgRtt = 0.5 * m_tcb->m_avgRtt + (0.5 * m_lastRtt.Get().GetMicroSeconds()) / 1000;
+        if (m_tcb->m_avgRtt == 0)
+        {
+          m_tcb->m_avgRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
+          // std::cout << m_tcb->m_avgRtt << std::endl;
+        }
+        else
+        {
+          m_tcb->m_avgRtt = 0.5 * m_tcb->m_avgRtt + (0.5 * m_lastRtt.Get().GetMicroSeconds()) / 1000;
+        }
+
+        m_tcb->m_currentRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
       }
 
-      m_tcb->m_currentRtt = double(m_lastRtt.Get().GetMicroSeconds()) / 1000;
-      // std::cout << m_tcb->m_currentRtt << std::endl;
-      // std::cout << "update the rtt" << std::endl;
       /**
        * addtion part ends
       */

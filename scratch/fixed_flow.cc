@@ -11,7 +11,6 @@
 #include <fstream>
 
 #define START_TIME 0.0
-#define END_TIME 10
 
 // 128M
 #define BUFFER_SIZE 134217728
@@ -20,8 +19,9 @@
 // #define TCP_PROTOCOL "ns3::TcpNewReno"
 
 #define PORT_START 1000
-#define PORT_END 65535
+#define PORT_END 49152
 
+double END_TIME = 10;
 extern int adjust_interval;
 extern std::string BANDWIDTH_LINK;
 extern uint64_t bandwidth;
@@ -30,6 +30,7 @@ extern double LOAD;
 extern double LOSS_RATE;
 extern std::string PROPOGATION_DELAY;
 extern int numOfSwitches;
+extern uint32_t mode;
 // extern std::map<int, int> netdeviceQ_length;
 
 struct flow
@@ -57,6 +58,8 @@ int main(int argc, char *argv[])
     cmd.AddValue("LOSS_RATE", "丢包率", LOSS_RATE);
     cmd.AddValue("BANDWIDTH_LINK", "数据中心链路带宽", BANDWIDTH_LINK);
     cmd.AddValue("LOAD", "链路的负载状况", LOAD);
+    cmd.AddValue("MODE", "是否开启优先级队列和变化", mode);
+    cmd.AddValue("END_TIME", "结束模拟的时间", END_TIME);
     cmd.Parse(argc, argv);
 
     // 参数配置
@@ -68,7 +71,7 @@ int main(int argc, char *argv[])
     Config::SetDefault("ns3::PointToPointNetDevice::Mtu", UintegerValue(MTU));
 
     // set the rto
-    double rto = Time(PROPOGATION_DELAY).GetSeconds() * 8 * 5;
+    double rto = Time(PROPOGATION_DELAY).GetSeconds() * 8 * 10;
     Config::SetDefault("ns3::TcpSocketBase::MinRto", TimeValue(Seconds(rto)));
 
     //generate cdf table
@@ -101,22 +104,12 @@ int main(int argc, char *argv[])
         flowInfo.push_back(f);
     }
 
-    // FCT file name
-    std::string FCT_fileName = std::string("FCT(dc)_").append(PROPOGATION_DELAY).append(std::string("_")).append(BANDWIDTH_LINK).append(std::string("_"));
-    FCT_fileName = FCT_fileName.append(std::to_string(LOSS_RATE)).append(std::string("_")).append(std::to_string(LOAD));
-
     //leaf spine topology
     NodeContainer spines,
         leafs, ends;
     spines.Create(4);
     leafs.Create(4);
     ends.Create(32);
-
-    // initialize the queue length of netdevice
-    // for (uint32_t i = 0; i < ends.GetN(); i++)
-    // {
-    //     netdeviceQ_length[i] = 0;
-    // }
 
     /**
      * add the id of each node
@@ -146,6 +139,11 @@ int main(int argc, char *argv[])
     stackHelper.Install(ends);
 
     MtuNetHelper netHelper;
+
+    // FCT file name
+    std::string FCT_fileName = std::string("FCT(dc)_").append(PROPOGATION_DELAY).append(std::string("_")).append(BANDWIDTH_LINK).append(std::string("_"));
+    FCT_fileName = FCT_fileName.append(std::to_string(LOSS_RATE)).append(std::string("_")).append(std::to_string(LOAD)).append(std::string("_")).append(std::to_string(mode));
+    std::cout << mode << " " << FCT_fileName << std::endl;
 
     uint64_t rtt = Time(PROPOGATION_DELAY).GetNanoSeconds() * 8 + (double(1500 * 8) * 10000 / double(bandwidth) * 100000) * (numOfSwitches + 1);
     netHelper.SetDeviceAttribute("DataRate", StringValue(BANDWIDTH_LINK));

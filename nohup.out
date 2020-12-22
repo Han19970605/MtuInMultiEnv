@@ -1,0 +1,29 @@
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+[ 901/1859] Compiling scratch/fixed_flow.cc
+[1842/1859] Linking build/scratch/fixed_flow
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (2.222s)
+0 FCT(dc)_100us_1Gbps_0.000000_0.300000_0
+21.9138
+0.1
+begin install applications
+Interrupted 
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Interrupted 
+Interrupted 
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Interrupted 
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.572s)
+4 FCT(dc)_100us_1Gbps_0.000000_0.300000_4
+21.9138
+0.1
+begin install applications
+flow count is64373
+Interrupted 
+Interrupted 

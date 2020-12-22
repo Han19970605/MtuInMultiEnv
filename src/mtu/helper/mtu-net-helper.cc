@@ -30,9 +30,9 @@
  * \param netdeviceQ_length queue length in netdevice, one device for each host, the id can be get by GetId()
  * \param flowInfo use the given flowInfo obtained from the csv files
 */
-uint32_t mode = 0;
+uint32_t mode = 1;
 int adjust_interval = 6;
-std::string BANDWIDTH_LINK = "1Gbps";
+std::string BANDWIDTH_LINK = "10Gbps";
 uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
 std::map<int, int> netdeviceQ_length;
 uint32_t initialCwnd = 9000;
@@ -118,9 +118,10 @@ namespace ns3
         for (int i = 0; i < flowInfo.size(); i++)
         {
             port = port_start + i;
+
             if (port >= port_end)
             {
-                std::cout << port << std::endl;
+                // std::cout << "the port is bigger than port end" << port << std::endl;
                 break;
             }
 
@@ -137,6 +138,11 @@ namespace ns3
             while (dstIndex == srcIndex)
             {
                 dstIndex = MtuUtility::rand_range(0, dst_leaf_node_count - 1);
+            }
+
+            if (port == 49153)
+            {
+                std::cout << src_leaf_node_count << " " << dst_leaf_node_count << " " << srcIndex << " " << dstIndex << std::endl;
             }
 
             int size = 1460;

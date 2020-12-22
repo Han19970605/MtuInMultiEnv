@@ -122,7 +122,6 @@ namespace ns3
 
   int PacketSocket::Bind(const Address &address)
   {
-    std::cout << "packet socket" << std::endl;
     NS_LOG_FUNCTION(this << address);
     if (!PacketSocketAddress::IsMatchingType(address))
     {

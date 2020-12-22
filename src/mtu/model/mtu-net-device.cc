@@ -49,39 +49,39 @@ namespace ns3
 
     bool MtuNetDevice::Send(Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber)
     {
-        PriorityTag tag;
-        bool found = packet->PeekPacketTag(tag);
+        // PriorityTag tag;
+        // bool found = packet->PeekPacketTag(tag);
 
-        if (found)
-        {
-            // std::cout << "packet sending" << std::endl;
-            Ptr<MultiQueue> q = DynamicCast<MultiQueue>(this->GetQueue());
-            uint64_t bytesInQueue = q->GetTotalNumber();
+        // if (found)
+        // {
+        //     // std::cout << "packet sending" << std::endl;
+        //     Ptr<MultiQueue> q = DynamicCast<MultiQueue>(this->GetQueue());
+        //     uint64_t bytesInQueue = q->GetTotalNumber();
 
-            if ((tag.GetTotalTag() + packet->GetSize()) >= tag.GetFlowsizeTag())
-            {
-                uint64_t fct = Simulator::Now().GetNanoSeconds() - tag.GetTimeStamp() + rtt;
-                std::string fileName = (std::string("./data/fct/")).append(data_fileName).append(std::string(".csv"));
-                // std::cout << fileName << std::endl;
-                std::ofstream file(fileName, std::ios::app);
-                uint32_t node_id = this->GetNode()->GetId();
-                file << node_id << "," << tag.GetSeqTag() << "," << TCP_PROTOCOL << "," << loss_rate << "," << LOAD << "," << PROPOGATION_DELAY << ","
-                     << tag.GetFlowsizeTag() << "," << fct
-                     << "\n";
-                file.close();
+        //     if ((tag.GetTotalTag() + packet->GetSize()) >= tag.GetFlowsizeTag())
+        //     {
+        //         uint64_t fct = Simulator::Now().GetNanoSeconds() - tag.GetTimeStamp() + rtt;
+        //         std::string fileName = (std::string("./data/fct/")).append(data_fileName).append(std::string(".csv"));
+        //         // std::cout << fileName << std::endl;
+        //         std::ofstream file(fileName, std::ios::app);
+        //         uint32_t node_id = this->GetNode()->GetId();
+        //         file << node_id << "," << tag.GetSeqTag() << "," << TCP_PROTOCOL << "," << loss_rate << "," << LOAD << "," << PROPOGATION_DELAY << ","
+        //              << tag.GetFlowsizeTag() << "," << fct
+        //              << "\n";
+        //         file.close();
 
-                //netdevice at the endhost
-                // if (node_id < 32)
-                // {
-                //     netdeviceQ_length[node_id] = bytesInQueue;
-                // }
+        //         //netdevice at the endhost
+        //         // if (node_id < 32)
+        //         // {
+        //         //     netdeviceQ_length[node_id] = bytesInQueue;
+        //         // }
 
-                // std::string buffer_file = (std::string("./data/buffer/")).append(data_fileName).append(std::string("_buffer.csv"));
-                // std::ofstream bufferFile(buffer_file, std::ios::app);
-                // bufferFile << bytesInQueue << "\n";
-                // bufferFile.close();
-            }
-        }
+        //         // std::string buffer_file = (std::string("./data/buffer/")).append(data_fileName).append(std::string("_buffer.csv"));
+        //         // std::ofstream bufferFile(buffer_file, std::ios::app);
+        //         // bufferFile << bytesInQueue << "\n";
+        //         // bufferFile.close();
+        //     }
+        // }
         if (packet == 0)
         {
             std::cout << "packet is null " << std::endl;

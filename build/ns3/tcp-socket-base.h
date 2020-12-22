@@ -219,11 +219,17 @@ namespace ns3
      * add value for update the segmentsize
     */
     double m_lastUpdate{0};
-    // use m_rtt.getestimate()来估计
+    // use m_rtt.getestimate() in estimate rtt来估计
     double m_currentRtt{0.0};
     double m_avgRtt{0.0};
     uint64_t m_avg_queSize;
+    uint64_t m_flowSize{0};
+    uint64_t m_startTime{0};
+    uint32_t m_flowid{0};
     // std::map<int, int> m_seqRecord;
+    /**
+     * end the addtion part
+    */
   };
 
   /**
