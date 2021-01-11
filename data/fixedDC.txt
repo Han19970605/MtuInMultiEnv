@@ -1,0 +1,1329 @@
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+[1419/1859] Compiling src/internet/model/tcp-socket-base.cc
+[1821/1859] Linking build/libns3.28-internet-debug.so
+[1823/1859] Linking build/libns3.28-dsdv-debug.so
+[1824/1859] Linking build/libns3.28-aodv-debug.so
+[1825/1859] Linking build/libns3.28-internet-apps-debug.so
+[1826/1859] Linking build/libns3.28-wave-debug.so
+[1827/1859] Linking build/libns3.28-flow-monitor-debug.so
+[1828/1859] Linking build/libns3.28-nix-vector-routing-debug.so
+[1829/1859] Linking build/libns3.28-sixlowpan-debug.so
+[1830/1859] Linking build/libns3.28-mesh-debug.so
+[1831/1859] Linking build/libns3.28-olsr-debug.so
+[1832/1859] Linking build/libns3.28-csma-layout-debug.so
+[1833/1859] Linking build/libns3.28-applications-debug.so
+[1834/1859] Linking build/libns3.28-tap-bridge-debug.so
+[1835/1859] Linking build/libns3.28-point-to-point-layout-debug.so
+[1836/1859] Linking build/libns3.28-wimax-debug.so
+[1837/1859] Linking build/libns3.28-dsr-debug.so
+[1838/1859] Linking build/libns3.28-lte-debug.so
+[1839/1859] Linking build/libns3.28-netanim-debug.so
+[1840/1859] Linking build/libns3.28-test-debug.so
+[1841/1859] Linking build/scratch/test
+[1842/1859] Linking build/utils/ns3.28-print-introspected-doxygen-debug
+[1843/1859] Linking build/scratch/mtu_datacenter
+[1844/1859] Linking build/scratch/mtu_wan
+[1845/1859] Linking build/scratch/mtu_mix
+[1846/1859] Linking build/scratch/fixed_flow
+[1847/1859] Linking build/scratch/subdir/subdir
+[1848/1859] Linking build/utils/ns3.28-test-runner-debug
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (9.107s)
+0 FCT(dc)_100us_1Gbps_0.000000_0.100000_0
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.565s)
+0 FCT(dc)_100us_1Gbps_0.000000_0.300000_0
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.518s)
+0 FCT(dc)_100us_1Gbps_0.000000_0.500000_0
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.511s)
+0 FCT(dc)_10us_10Gbps_0.000000_0.100000_0
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.464s)
+0 FCT(dc)_10us_10Gbps_0.000000_0.300000_0
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.594s)
+0 FCT(dc)_10us_10Gbps_0.000000_0.500000_0
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.500s)
+1 FCT(dc)_100us_1Gbps_0.000000_0.100000_1
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.569s)
+1 FCT(dc)_100us_1Gbps_0.000000_0.300000_1
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.583s)
+1 FCT(dc)_100us_1Gbps_0.000000_0.500000_1
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.534s)
+1 FCT(dc)_10us_10Gbps_0.000000_0.100000_1
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.489s)
+1 FCT(dc)_10us_10Gbps_0.000000_0.300000_1
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.495s)
+1 FCT(dc)_10us_10Gbps_0.000000_0.500000_1
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.564s)
+2 FCT(dc)_100us_1Gbps_0.000000_0.100000_2
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.568s)
+2 FCT(dc)_100us_1Gbps_0.000000_0.300000_2
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.501s)
+2 FCT(dc)_100us_1Gbps_0.000000_0.500000_2
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+[ 901/1859] Compiling scratch/fixed_flow.cc
+[1848/1859] Linking build/scratch/fixed_flow
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (2.255s)
+2 FCT(dc)_10us_10Gbps_0.000000_0.100000_2
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.613s)
+2 FCT(dc)_10us_10Gbps_0.000000_0.300000_2
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.703s)
+2 FCT(dc)_10us_10Gbps_0.000000_0.500000_2
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.496s)
+3 FCT(dc)_100us_1Gbps_0.000000_0.100000_3
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.568s)
+3 FCT(dc)_100us_1Gbps_0.000000_0.300000_3
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.587s)
+3 FCT(dc)_100us_1Gbps_0.000000_0.500000_3
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.525s)
+3 FCT(dc)_10us_10Gbps_0.000000_0.100000_3
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.579s)
+3 FCT(dc)_10us_10Gbps_0.000000_0.300000_3
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.621s)
+3 FCT(dc)_10us_10Gbps_0.000000_0.500000_3
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.558s)
+4 FCT(dc)_100us_1Gbps_0.000000_0.100000_4
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.606s)
+4 FCT(dc)_100us_1Gbps_0.000000_0.300000_4
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.517s)
+4 FCT(dc)_100us_1Gbps_0.000000_0.500000_4
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.509s)
+4 FCT(dc)_10us_10Gbps_0.000000_0.100000_4
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.528s)
+4 FCT(dc)_10us_10Gbps_0.000000_0.300000_4
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.561s)
+4 FCT(dc)_10us_10Gbps_0.000000_0.500000_4
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.551s)
+5 FCT(dc)_100us_1Gbps_0.000000_0.100000_5
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.576s)
+5 FCT(dc)_100us_1Gbps_0.000000_0.300000_5
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.553s)
+5 FCT(dc)_100us_1Gbps_0.000000_0.500000_5
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.579s)
+5 FCT(dc)_10us_10Gbps_0.000000_0.100000_5
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.537s)
+5 FCT(dc)_10us_10Gbps_0.000000_0.300000_5
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.525s)
+5 FCT(dc)_10us_10Gbps_0.000000_0.500000_5
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.528s)
+0 FCT(dc)_100us_1Gbps_0.010000_0.100000_0
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.562s)
+0 FCT(dc)_100us_1Gbps_0.010000_0.300000_0
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.548s)
+0 FCT(dc)_100us_1Gbps_0.010000_0.500000_0
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.491s)
+0 FCT(dc)_10us_10Gbps_0.010000_0.100000_0
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.590s)
+0 FCT(dc)_10us_10Gbps_0.010000_0.300000_0
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.502s)
+0 FCT(dc)_10us_10Gbps_0.010000_0.500000_0
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.544s)
+1 FCT(dc)_100us_1Gbps_0.010000_0.100000_1
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.498s)
+1 FCT(dc)_100us_1Gbps_0.010000_0.300000_1
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.557s)
+1 FCT(dc)_100us_1Gbps_0.010000_0.500000_1
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.544s)
+1 FCT(dc)_10us_10Gbps_0.010000_0.100000_1
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.531s)
+1 FCT(dc)_10us_10Gbps_0.010000_0.300000_1
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.558s)
+1 FCT(dc)_10us_10Gbps_0.010000_0.500000_1
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.495s)
+2 FCT(dc)_100us_1Gbps_0.010000_0.100000_2
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.494s)
+2 FCT(dc)_100us_1Gbps_0.010000_0.300000_2
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.536s)
+2 FCT(dc)_100us_1Gbps_0.010000_0.500000_2
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.535s)
+2 FCT(dc)_10us_10Gbps_0.010000_0.100000_2
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.493s)
+2 FCT(dc)_10us_10Gbps_0.010000_0.300000_2
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.489s)
+2 FCT(dc)_10us_10Gbps_0.010000_0.500000_2
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.515s)
+3 FCT(dc)_100us_1Gbps_0.010000_0.100000_3
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.550s)
+3 FCT(dc)_100us_1Gbps_0.010000_0.300000_3
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.514s)
+3 FCT(dc)_100us_1Gbps_0.010000_0.500000_3
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.547s)
+3 FCT(dc)_10us_10Gbps_0.010000_0.100000_3
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.589s)
+3 FCT(dc)_10us_10Gbps_0.010000_0.300000_3
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.542s)
+3 FCT(dc)_10us_10Gbps_0.010000_0.500000_3
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.553s)
+4 FCT(dc)_100us_1Gbps_0.010000_0.100000_4
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.487s)
+4 FCT(dc)_100us_1Gbps_0.010000_0.300000_4
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.498s)
+4 FCT(dc)_100us_1Gbps_0.010000_0.500000_4
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.520s)
+4 FCT(dc)_10us_10Gbps_0.010000_0.100000_4
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.519s)
+4 FCT(dc)_10us_10Gbps_0.010000_0.300000_4
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.576s)
+4 FCT(dc)_10us_10Gbps_0.010000_0.500000_4
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.553s)
+5 FCT(dc)_100us_1Gbps_0.010000_0.100000_5
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.568s)
+5 FCT(dc)_100us_1Gbps_0.010000_0.300000_5
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.530s)
+5 FCT(dc)_100us_1Gbps_0.010000_0.500000_5
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.528s)
+5 FCT(dc)_10us_10Gbps_0.010000_0.100000_5
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.589s)
+5 FCT(dc)_10us_10Gbps_0.010000_0.300000_5
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.534s)
+5 FCT(dc)_10us_10Gbps_0.010000_0.500000_5
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.579s)
+0 FCT(dc)_100us_1Gbps_0.050000_0.100000_0
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.539s)
+0 FCT(dc)_100us_1Gbps_0.050000_0.300000_0
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.524s)
+0 FCT(dc)_100us_1Gbps_0.050000_0.500000_0
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.560s)
+0 FCT(dc)_10us_10Gbps_0.050000_0.100000_0
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.525s)
+0 FCT(dc)_10us_10Gbps_0.050000_0.300000_0
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.515s)
+0 FCT(dc)_10us_10Gbps_0.050000_0.500000_0
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.555s)
+1 FCT(dc)_100us_1Gbps_0.050000_0.100000_1
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.552s)
+1 FCT(dc)_100us_1Gbps_0.050000_0.300000_1
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.609s)
+1 FCT(dc)_100us_1Gbps_0.050000_0.500000_1
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.496s)
+1 FCT(dc)_10us_10Gbps_0.050000_0.100000_1
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.505s)
+1 FCT(dc)_10us_10Gbps_0.050000_0.300000_1
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.573s)
+1 FCT(dc)_10us_10Gbps_0.050000_0.500000_1
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.539s)
+2 FCT(dc)_100us_1Gbps_0.050000_0.100000_2
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.659s)
+2 FCT(dc)_100us_1Gbps_0.050000_0.300000_2
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.583s)
+2 FCT(dc)_100us_1Gbps_0.050000_0.500000_2
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.608s)
+2 FCT(dc)_10us_10Gbps_0.050000_0.100000_2
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.487s)
+2 FCT(dc)_10us_10Gbps_0.050000_0.300000_2
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.534s)
+2 FCT(dc)_10us_10Gbps_0.050000_0.500000_2
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.552s)
+3 FCT(dc)_100us_1Gbps_0.050000_0.100000_3
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.525s)
+3 FCT(dc)_100us_1Gbps_0.050000_0.300000_3
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.531s)
+3 FCT(dc)_100us_1Gbps_0.050000_0.500000_3
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.508s)
+3 FCT(dc)_10us_10Gbps_0.050000_0.100000_3
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.539s)
+3 FCT(dc)_10us_10Gbps_0.050000_0.300000_3
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.477s)
+3 FCT(dc)_10us_10Gbps_0.050000_0.500000_3
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.473s)
+4 FCT(dc)_100us_1Gbps_0.050000_0.100000_4
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.496s)
+4 FCT(dc)_100us_1Gbps_0.050000_0.300000_4
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.510s)
+4 FCT(dc)_100us_1Gbps_0.050000_0.500000_4
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.510s)
+4 FCT(dc)_10us_10Gbps_0.050000_0.100000_4
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.503s)
+4 FCT(dc)_10us_10Gbps_0.050000_0.300000_4
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.517s)
+4 FCT(dc)_10us_10Gbps_0.050000_0.500000_4
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.515s)
+5 FCT(dc)_100us_1Gbps_0.050000_0.100000_5
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.465s)
+5 FCT(dc)_100us_1Gbps_0.050000_0.300000_5
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.518s)
+5 FCT(dc)_100us_1Gbps_0.050000_0.500000_5
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.479s)
+5 FCT(dc)_10us_10Gbps_0.050000_0.100000_5
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.514s)
+5 FCT(dc)_10us_10Gbps_0.050000_0.300000_5
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.505s)
+5 FCT(dc)_10us_10Gbps_0.050000_0.500000_5
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.562s)
+0 FCT(dc)_100us_1Gbps_0.100000_0.100000_0
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.503s)
+0 FCT(dc)_100us_1Gbps_0.100000_0.300000_0
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.547s)
+0 FCT(dc)_100us_1Gbps_0.100000_0.500000_0
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.552s)
+0 FCT(dc)_10us_10Gbps_0.100000_0.100000_0
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.561s)
+0 FCT(dc)_10us_10Gbps_0.100000_0.300000_0
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.569s)
+0 FCT(dc)_10us_10Gbps_0.100000_0.500000_0
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.489s)
+1 FCT(dc)_100us_1Gbps_0.100000_0.100000_1
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.489s)
+1 FCT(dc)_100us_1Gbps_0.100000_0.300000_1
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.480s)
+1 FCT(dc)_100us_1Gbps_0.100000_0.500000_1
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.475s)
+1 FCT(dc)_10us_10Gbps_0.100000_0.100000_1
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.573s)
+1 FCT(dc)_10us_10Gbps_0.100000_0.300000_1
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.484s)
+1 FCT(dc)_10us_10Gbps_0.100000_0.500000_1
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.529s)
+2 FCT(dc)_100us_1Gbps_0.100000_0.100000_2
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.514s)
+2 FCT(dc)_100us_1Gbps_0.100000_0.300000_2
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.492s)
+2 FCT(dc)_100us_1Gbps_0.100000_0.500000_2
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.492s)
+2 FCT(dc)_10us_10Gbps_0.100000_0.100000_2
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.536s)
+2 FCT(dc)_10us_10Gbps_0.100000_0.300000_2
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.536s)
+2 FCT(dc)_10us_10Gbps_0.100000_0.500000_2
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.501s)
+3 FCT(dc)_100us_1Gbps_0.100000_0.100000_3
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.504s)
+3 FCT(dc)_100us_1Gbps_0.100000_0.300000_3
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.517s)
+3 FCT(dc)_100us_1Gbps_0.100000_0.500000_3
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.500s)
+3 FCT(dc)_10us_10Gbps_0.100000_0.100000_3
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.529s)
+3 FCT(dc)_10us_10Gbps_0.100000_0.300000_3
+219.138
+0.01
+begin install applications
+flow count is10168
+assert failed. cond="AreEquals(t1->m_lost, t2->m_lost)", msg="Merging one lost and another not lost. Impossible", file=../src/internet/model/tcp-tx-buffer.cc, line=593
+terminate called without an active exception
+Command ['/home/hanfeixue/ns3/MultiEnv/build/scratch/fixed_flow', '--DELAY=10us', '--LOSS_RATE=0.1', '--BANDWIDTH_LINK=10Gbps', '--LOAD=0.3', '--MODE=3'] terminated with signal SIGIOT. Run it under a debugger to get more information (./waf --run <program> --command-template="gdb --args %s <args>").
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.516s)
+3 FCT(dc)_10us_10Gbps_0.100000_0.500000_3
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.538s)
+4 FCT(dc)_100us_1Gbps_0.100000_0.100000_4
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.497s)
+4 FCT(dc)_100us_1Gbps_0.100000_0.300000_4
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.501s)
+4 FCT(dc)_100us_1Gbps_0.100000_0.500000_4
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.481s)
+4 FCT(dc)_10us_10Gbps_0.100000_0.100000_4
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.524s)
+4 FCT(dc)_10us_10Gbps_0.100000_0.300000_4
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.532s)
+4 FCT(dc)_10us_10Gbps_0.100000_0.500000_4
+365.23
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.583s)
+5 FCT(dc)_100us_1Gbps_0.100000_0.100000_5
+7.3046
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.518s)
+5 FCT(dc)_100us_1Gbps_0.100000_0.300000_5
+21.9138
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.495s)
+5 FCT(dc)_100us_1Gbps_0.100000_0.500000_5
+36.523
+0.1
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.508s)
+5 FCT(dc)_10us_10Gbps_0.100000_0.100000_5
+73.046
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.496s)
+5 FCT(dc)_10us_10Gbps_0.100000_0.300000_5
+219.138
+0.01
+begin install applications
+flow count is10168
+Waf: Entering directory `/home/hanfeixue/ns3/MultiEnv/build'
+Waf: Leaving directory `/home/hanfeixue/ns3/MultiEnv/build'
+Build commands will be stored in build/compile_commands.json
+'build' finished successfully (0.523s)
+5 FCT(dc)_10us_10Gbps_0.100000_0.500000_5
+365.23
+0.01
+begin install applications
+flow count is10168

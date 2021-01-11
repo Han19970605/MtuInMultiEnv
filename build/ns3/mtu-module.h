@@ -14,4 +14,5 @@
 #include "mtu-utility.h"
 #include "multi-queue.h"
 #include "priority-tag.h"
+#include "test-python.h"
 #endif

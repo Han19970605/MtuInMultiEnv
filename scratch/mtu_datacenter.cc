@@ -23,8 +23,8 @@
 #define PORT_END 65535
 
 extern int adjust_interval;
-// extern std::map<int, int> netdeviceQ_length;
 extern std::string BANDWIDTH_LINK;
+extern double LOAD;
 
 struct flow
 {
@@ -40,11 +40,12 @@ NS_LOG_COMPONENT_DEFINE("DataCenter");
 int main(int argc, char *argv[])
 {
     LogComponentEnable("DataCenter", LOG_INFO);
+    LogComponentEnable("MtuNetHelper", LOG_INFO);
 
     // cmd传参 全局变量用于ertern
     std::string PROPOGATION_DELAY = "10us";
     double LOSS_RATE = 0;
-    double LOAD = 0.3;
+    // double LOAD = 0.1;
 
     CommandLine cmd;
     cmd.AddValue("DELAY", "延迟", PROPOGATION_DELAY);
@@ -73,28 +74,28 @@ int main(int argc, char *argv[])
     MtuUtility::load_cdf(cdfTable, cdfFileName.c_str());
 
     //read the flow infomation
-    std::string flowInfo_file = "./genFlow/dcgen_flow_";
-    flowInfo_file.append(BANDWIDTH_LINK);
-    flowInfo_file.append("_");
-    flowInfo_file.append(std::to_string(LOAD));
-    flowInfo_file.append(".csv");
-    std::ifstream flowCsv(flowInfo_file, std::ios::in);
-    std::string line;
-    // std::cout << flowInfo << std::endl;
-    while (getline(flowCsv, line))
-    {
-        std::stringstream ss(line);
-        flow f;
-        std::string value;
-        std::vector<std::string> info;
-        while (getline(ss, value, ','))
-        {
-            info.push_back(value);
-        }
-        f.startTime = atof(info[0].c_str());
-        f.flowSize = atoi(info[1].c_str());
-        flowInfo.push_back(f);
-    }
+    // std::string flowInfo_file = "./genFlow/dcgen_flow_";
+    // flowInfo_file.append(BANDWIDTH_LINK);
+    // flowInfo_file.append("_");
+    // flowInfo_file.append(std::to_string(LOAD));
+    // flowInfo_file.append(".csv");
+    // std::ifstream flowCsv(flowInfo_file, std::ios::in);
+    // std::string line;
+    // // std::cout << flowInfo << std::endl;
+    // while (getline(flowCsv, line))
+    // {
+    //     std::stringstream ss(line);
+    //     flow f;
+    //     std::string value;
+    //     std::vector<std::string> info;
+    //     while (getline(ss, value, ','))
+    //     {
+    //         info.push_back(value);
+    //     }
+    //     f.startTime = atof(info[0].c_str());
+    //     f.flowSize = atoi(info[1].c_str());
+    //     flowInfo.push_back(f);
+    // }
 
     // FCT file name
     std::string FCT_fileName = std::string("FCT(dc)_").append(PROPOGATION_DELAY).append(std::string("_")).append(BANDWIDTH_LINK).append(std::string("_"));
@@ -354,14 +355,14 @@ int main(int argc, char *argv[])
     uint32_t flowCount = 0;
     double delay_prop = double(Time(PROPOGATION_DELAY).GetMicroSeconds()) / 1000;
     double delay_process, delay_tx, delay_rx = 0;
-    double end_gen_time = 64535.0 / request_rate / 32;
+    double end_gen_time = 10000.0 / request_rate / 32;
     uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
 
     netHelper.InstallAllApplicationsInDC(ends, ends, request_rate, cdfTable, dstAddress, flowCount, PORT_START, PORT_END, START_TIME, END_TIME, end_gen_time,
                                          bandwidth, delay_prop, delay_process, delay_tx, delay_rx);
     //     netHelper.InstallAllApplications(ends, ends, request_rate, cdfTable,
     //                                      dstAddress, flowCount, PORT_START, PORT_END, MSS, START_TIME, END_TIME, END_TIME, bandwidth, delay_prop);
-    std::cout << "flow count is" << flowCount << std::endl;
+    std::cout << "flow count is " << end_gen_time << " " << flowCount << std::endl;
 
     Ptr<FlowMonitor> flowMonitor;
     FlowMonitorHelper flowHelper;

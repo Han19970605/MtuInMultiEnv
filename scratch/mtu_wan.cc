@@ -21,6 +21,8 @@
 #define PORT_START 1000
 #define PORT_END 65535
 
+extern std::string BANDWIDTH_LINK;
+extern double LOAD;
 // #define LOSS_RATE 0.0
 // #define PROPOGATION_DELAY "100us"
 // #define ES_BANDWIDTH "1Gbps"
@@ -38,12 +40,12 @@ int main(int argc, char *argv[])
     // 脚本传输的参数
     // propogation delay refers to per hop
     std::string PROPOGATION_DELAY = "2ms";
-    std::string ES_BANDWIDTH = "1Gbps";
-    std::string SS_BANDWIDTH = "1Gbps";
+    std::string ES_BANDWIDTH = BANDWIDTH_LINK;
+    std::string SS_BANDWIDTH = BANDWIDTH_LINK;
     double LOSS_RATE = 0.0;
     double delay_tx = 0.0;
     double delay_rx = 0.0;
-    double LOAD = 0.8;
+    // double LOAD = 0.8;
 
     CommandLine cmd;
     cmd.AddValue("PROPOGATION_DELAY", "延迟", PROPOGATION_DELAY);
@@ -151,13 +153,13 @@ int main(int argc, char *argv[])
     uint64_t bandwidth = DataRate(ES_BANDWIDTH).GetBitRate();
     double delay_prop = double(Time(PROPOGATION_DELAY).GetMicroSeconds()) / 1000;
     double delay_process = 0;
-    double end_gen_time = 64535.0 / request_rate / 32;
+    double end_gen_time = 500.0 / request_rate / 4;
 
     ESNetHelper.InstallAllApplicationsInWAN(from_servers, dst_servers, request_rate, cdfTable, dstAddress,
                                             flowCount, PORT_START, PORT_END, START_TIME, END_TIME, end_gen_time, bandwidth,
                                             switches.GetN(), delay_prop, delay_process, delay_tx, delay_rx);
 
-    std::cout << flowCount << std::endl;
+    std::cout << "flow count is " << flowCount << " " << end_gen_time << std::endl;
     Simulator::Stop(Seconds(END_TIME));
     Simulator::Run();
 

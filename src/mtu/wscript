@@ -9,7 +9,8 @@ def build(bld):
         'model/mtu-net-device.cc',
         'model/priority-tag.cc',
         'utils/mtu-utility.cc',
-        'utils/mtu-decision.cc'
+        'utils/mtu-decision.cc',
+        'model/test-python.cc'
     ]
     
     headers = bld(features='ns3header')
@@ -21,6 +22,7 @@ def build(bld):
         'model/mtu-net-device.h',
         'model/priority-tag.h',
         'utils/mtu-utility.h',
-        'utils/mtu-decision.h'
+        'utils/mtu-decision.h',
+        'model/test-python.h'
     ]
     

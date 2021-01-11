@@ -2644,8 +2644,8 @@ namespace ns3
             if (m_tcb->m_segmentSize != (best_mtu - 40))
             {
               // record the change
-              std::string filePath = "./data/mtu_update_record";
-              filePath = filePath.append(BANDWIDTH_LINK).append("_").append(std::to_string(mode)).append(".csv");
+              std::string filePath = "./data/mtuUpdateRecord_";
+              filePath = filePath.append(BANDWIDTH_LINK).append("_").append(std::to_string(LOAD)).append("_").append(std::to_string(mode)).append(".csv");
               std::ofstream file(filePath, std::ios::app);
               file << tag.GetSeqTag() << "," << node_id << "," << Simulator::Now().GetSeconds() << "," << best_mtu << "," << queueLength << "," << flow_size << "," << RTT
                    << "\n";

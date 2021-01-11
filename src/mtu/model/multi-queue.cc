@@ -95,8 +95,8 @@ namespace ns3
         // FindFirstMatchingByteTag(tag);
         if (tagFound)
         {
-            // std::cout << "found tag" << std::endl;
             uint16_t priority = tag.GetPriorityTag();
+            // std::cout << "found tag " << priority << " " << tag.GetFlowsizeTag() << std::endl;
 
             //save to the corresponding queue
             if (priority >= m_queues.size())
@@ -170,6 +170,7 @@ namespace ns3
             uint32_t que_index = nonEmpty[index];
             packet = m_queues[que_index].front();
             m_queues[que_index].pop();
+            // std::cout << "queue index " << que_index << "size of queue 1 " << m_queues[1].size() << std::endl;
         }
         return packet;
     }

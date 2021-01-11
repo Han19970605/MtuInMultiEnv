@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     cmd.AddValue("BANDWIDTH_LINK", "数据中心链路带宽", BANDWIDTH_LINK);
     cmd.AddValue("LOAD", "链路的负载状况", LOAD);
     cmd.AddValue("MODE", "是否开启优先级队列和变化", mode);
-    cmd.AddValue("END_TIME", "结束模拟的时间", END_TIME);
+    // cmd.AddValue("END_TIME", "结束模拟的时间", END_TIME);
     cmd.Parse(argc, argv);
 
     // 参数配置
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     MtuUtility::load_cdf(cdfTable, cdfFileName.c_str());
 
     //read the flow infomation
-    std::string flowInfo_file = "./genFlow/dcgen_flow_";
+    std::string flowInfo_file = "./genFlow/dcgen_1wflow_";
     flowInfo_file.append(BANDWIDTH_LINK);
     flowInfo_file.append("_");
     flowInfo_file.append(std::to_string(LOAD));
@@ -360,7 +360,8 @@ int main(int argc, char *argv[])
     double delay_prop = double(Time(PROPOGATION_DELAY).GetMicroSeconds()) / 1000;
     std::cout << delay_prop << std::endl;
     double delay_process, delay_tx, delay_rx = 0;
-    double end_gen_time = 64535.0 / request_rate / 32;
+    double end_gen_time = 10000.0 / request_rate / 32;
+    END_TIME = end_gen_time * 10;
     uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
 
     netHelper.InstallAllApplications(ends, ends, request_rate, cdfTable, dstAddress, flowCount, PORT_START, PORT_END, START_TIME, END_TIME, END_TIME,

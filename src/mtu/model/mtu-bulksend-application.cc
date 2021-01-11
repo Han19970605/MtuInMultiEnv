@@ -227,7 +227,7 @@ void MtuBulkSendApplication::SendData()
 
         PriorityTag tag;
         // if (m_totBytes == 0)
-        m_priority = 2;
+        // m_priority = 2;
         tag.SetTimeStamp(t_start);
         tag.SetPriorityTag(m_priority);
         tag.SetFLowsizeTag(m_maxBytes);

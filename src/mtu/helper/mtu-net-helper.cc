@@ -32,7 +32,7 @@
 */
 uint32_t mode = 1;
 int adjust_interval = 6;
-std::string BANDWIDTH_LINK = "10Gbps";
+std::string BANDWIDTH_LINK = "1Gbps";
 uint64_t bandwidth = DataRate(BANDWIDTH_LINK).GetBitRate();
 std::map<int, int> netdeviceQ_length;
 uint32_t initialCwnd = 9000;
@@ -132,6 +132,8 @@ namespace ns3
             if (mode == 0 || mode == 1 || mode == 2)
                 priority = MtuUtility::gen_priority(flowSize);
 
+            // std::cout << priority << std::endl;
+
             // select the src and dst
             int srcIndex = MtuUtility::rand_range(0, src_leaf_node_count - 1);
             int dstIndex = srcIndex;
@@ -190,6 +192,14 @@ namespace ns3
                 uint32_t priority = 0;
                 priority = MtuUtility::gen_priority(flowSize);
 
+                std::string file_path = "./genFlow/dcgen_1wflow_";
+                file_path = file_path.append(std::to_string(bandwidth / 1000000000));
+                file_path = file_path.append(std::string("Gbps_"));
+                file_path = file_path.append(std::to_string(LOAD));
+                file_path = file_path.append(std::string(".csv"));
+                std::ofstream file(file_path, std::ios::app);
+                file << startTime << "," << flowSize << "\n";
+
                 // select the best sendsize
                 int size = 1460;
                 MtuDecision *md = new MtuDecision();
@@ -237,9 +247,17 @@ namespace ns3
                 uint32_t priority = 0;
                 priority = MtuUtility::gen_priority(flowSize);
 
-                std::string file_path = "./data/wangen_flow_";
-                file_path = file_path.append(std::to_string(bandwidth / 1000000));
-                file_path = file_path.append(std::string("Mbps.csv"));
+                // std::string file_path = "./data/wangen_flow_";
+                // file_path = file_path.append(std::to_string(bandwidth / 1000000));
+                // file_path = file_path.append(std::string("Mbps.csv"));
+                // std::ofstream file(file_path, std::ios::app);
+                // file << startTime << "," << flowSize << "\n";
+
+                std::string file_path = "./genFlow/wangen_5kflow_";
+                file_path = file_path.append(std::to_string(bandwidth / 1000000000));
+                file_path = file_path.append(std::string("Gbps_"));
+                file_path = file_path.append(std::to_string(LOAD));
+                file_path = file_path.append(std::string(".csv"));
                 std::ofstream file(file_path, std::ios::app);
                 file << startTime << "," << flowSize << "\n";
 
@@ -414,7 +432,7 @@ namespace ns3
         // Ptr<MultiQueue> queueA = m_queueFactory.Create<MultiQueue>();
         // queueA->SetMaxPackets(100);
         Ptr<MultiQueue> queueA = m_queueFactory.Create<MultiQueue>();
-        queueA->SetMaxPackets(100);
+        // queueA->SetMaxPackets(100);
         dev_a->SetQueue(queueA);
         loss_node->AddDevice(dev_a);
 
@@ -426,7 +444,7 @@ namespace ns3
         // Ptr<MultiQueue> queueB = m_queueFactory.Create<MultiQueue>();
         // queueB->SetMaxPackets(100);
         Ptr<MultiQueue> queueB = m_queueFactory.Create<MultiQueue>();
-        queueB->SetMaxPackets(100);
+        // queueB->SetMaxPackets(100);
         dev_b->SetQueue(queueB);
         normal_node->AddDevice(dev_b);
 
